@@ -29,13 +29,16 @@ Thus, our exhibit’s topic focuses on the history of programming and assembly l
 *Interactive Element*
 
 The first interactive element of our exhibit would be an **interactive timeline of the first, second, third, fourth, and fifth generations of assembly languages.** This will be done by visually presenting the audience with a timeline. In the timeline, the timeline dates would be presented as a “bubble”, and the audience would be able to click them to learn more information. 
+
 ![Image of Figure 1 about the first interactive element](images/Figure1.png)
 
-Fig 1. Concept draft of the interactive timeline of assembly language 
+**Fig 1. Concept draft of the interactive timeline of assembly language** 
 
 The second interactive element of our exhibit would be an interactive drag and drop simulation of coding with an x86-64 assembly language. This would be similar to the popular programming language and site “scratch” (See https://scratch.mit.edu/). 
+
+![Image of Figure 2 about the second interactive element](images/Figure2.png)
 			
-Fig 2. Concept draft of the interactive drag and drop simulation of x86-64
+**Fig 2. Concept draft of the interactive drag and drop simulation of x86-64**
 
 The simulator will allow the audience to simulate basic x86-64 SASM instructions such as MOV, ADD, and INC instructions.
 
@@ -48,6 +51,10 @@ Mobile-Responsive Layout (if possible)
 Style Guide Snapshot
 The style guide consists of elements such as the text styles and color palettes to be used for the interactive element. Kindly note that this is only the initial design and the final product may differ
 
-Fig 3. Concept draft of the style guide
+![Image of Figure 3 about the style guide](images/Figure3.png)
 
-Fig 4. Concept style of layouts and design for the exhibit
+**Fig 3. Concept draft of the style guide**
+
+![Image of Figure 4 about the layout design for exhibit](images/Figure4.png)
+
+**Fig 4. Concept style of layouts and design for the exhibit**
