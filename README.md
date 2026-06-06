@@ -43,7 +43,7 @@ The simulator will allow the audience to simulate basic x86-64 SASM instructions
 
 ## Mobile-Responsive Layout (if possible)
 
-![Image of Figure 3 about the mobile layout](images/Mobile preview.png)
+![Image of Figure 3 about the mobile layout](images/Mobilepreview.png)
 
 **Fig 3. Concept draft of mobile layout**
 
