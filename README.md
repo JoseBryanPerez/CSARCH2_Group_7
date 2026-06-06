@@ -17,7 +17,7 @@ Perez Jose Bryan Lee
 
 
 # Topic Theme
-History of Programming and Assembly Language
+**History of Programming and Assembly Language**
 
 Assembly Language is a low-level language that allows programmers to communicate directly with computer hardware, offering more speed, space, and capability than most high-level languages. But before x86-64, ARM, MIPS–and the more popular assembly languages used today, computer scientists had to communicate directly with hardware using long strings of 0s and 1s. The history of assembly language can be traced back several decades, evolving from Ada Lovelace’s first algorithm in 1843, Alan Turing’s Enigma code machine in 1939, and punched-card coding in the 20th century to the well-known assembly languages we use today, assembly language has seen many breakthroughs and contributions to modern technology.
 
