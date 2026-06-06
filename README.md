@@ -29,7 +29,7 @@ The following are the intended interactive elements for the exhibit:
 The first interactive element of our exhibit would be an interactive timeline of the first, second, third, fourth, and fifth generations of assembly languages. This will be done by visually presenting the audience with a timeline. In the timeline, the timeline dates would be presented as a “bubble”, and the audience would be able to click them to learn more information. 
 
 
-			Fig 1. Concept draft of the interactive timeline of assembly language 
+Fig 1. Concept draft of the interactive timeline of assembly language 
 
 The second interactive element of our exhibit would be an interactive drag and drop simulation of coding with an x86-64 assembly language. This would be similar to the popular programming language and site “scratch” (See https://scratch.mit.edu/). 
 			
