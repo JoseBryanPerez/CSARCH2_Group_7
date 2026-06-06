@@ -24,8 +24,10 @@ Assembly Language is a low-level language that allows programmers to communicate
 Thus, our exhibit’s topic focuses on the history of programming and assembly language. Our exhibit aims to inform the audience of the predecessors of assembly languages and the evolution of computer systems that were used to decode and execute these instructions. This will be done through an interactive presentation about the timeline leading up to modern assembly languages along with an interactive drag and drop simulation of how to program with assembly language and how it now interacts with computer hardware. Additionally, the UI theme would closely follow a [[something-something]] to immerse the audience.
 
 # Tech Stack Plan
-The following are the intended interactive elements for the exhibit: 
-*Interactive Element
+**The following are the intended interactive elements for the exhibit:** 
+
+*Interactive Element*
+
 The first interactive element of our exhibit would be an interactive timeline of the first, second, third, fourth, and fifth generations of assembly languages. This will be done by visually presenting the audience with a timeline. In the timeline, the timeline dates would be presented as a “bubble”, and the audience would be able to click them to learn more information. 
 
 
