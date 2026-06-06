@@ -6,9 +6,13 @@
 
 # Member Roster
 Bactong Gabrielle Joei Vasquez
+
 Espineli Nyan Jezreel Gultiano
+
 Gunita Catherine Rosswyn Dela Cruz
+
 Magbatoc Ethan Daniel Berosa
+
 Perez Jose Bryan Lee
 
 
