@@ -83,7 +83,7 @@ The simulator will allow the audience to simulate basic x86-64 SASM instructions
 ---
 
 ## Style Guide Snapshot
-The style guide consists of elements such as the text styles and color palettes to be used for the interactive element.
+The style guide consists of elements such as the **text styles and color palettes** to be used for the interactive element.
 
 ![Image of Figure 4 about the style guide](images/Figure4.png)
 
