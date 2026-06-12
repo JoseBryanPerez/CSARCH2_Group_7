@@ -58,7 +58,7 @@ With its evolution, naturally came the 32-bit registers as it extended the old 1
 ## Tech Stack Plan
 **The following are the intended interactive elements for the exhibit:** 
 
-a. The first interactive element of our exhibit would be an **interactive timeline of the early key machines and their ISAs** such as the ENIAC, UNIVAC I, IBM 701, and CDC 6600, and how they all lead to the emergence of CISC and the invention of the x86-64 NASM AL. This will be done by visually presenting the audience with a timeline. In the timeline, the timeline dates would be presented as a “bubble”, and the audience would be able to click them to learn more information. 
+The first interactive element of our exhibit would be an **interactive timeline of the early key machines and their ISAs** such as the ENIAC, UNIVAC I, IBM 701, and CDC 6600, and how they all lead to the emergence of CISC and the invention of the x86-64 NASM AL. This will be done by visually presenting the audience with a timeline. In the timeline, the timeline dates would be presented as a “bubble”, and the audience would be able to click them to learn more information. 
 
 ![Image of Figure 1 about the first interactive element](images/Figure1.png)
 
