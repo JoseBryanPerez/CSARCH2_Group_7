@@ -2,7 +2,7 @@
 # CSARCH2 Virtual Exhibit Case Proposal
 
 # Title
-“From 0s to 1s to Assembly: History of the x86-64 CISC Assembly Language”
+“From 0's and 1's to Assembly: History of the x86-64 CISC Assembly Language”
 
 ## Member Roster
 1. Bactong Gabrielle Joei Vasquez
