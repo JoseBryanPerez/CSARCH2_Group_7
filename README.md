@@ -2,7 +2,7 @@
 # CSARCH2 Virtual Exhibit Case Proposal
 
 # Title
-“"History of the x86-64 CISC Assembly Language"”
+“History of the x86-64 CISC Assembly Language”
 
 ## Member Roster
 1. Bactong Gabrielle Joei Vasquez
