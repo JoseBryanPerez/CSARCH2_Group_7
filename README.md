@@ -71,6 +71,7 @@ The second interactive element of our exhibit would be an **interactive drag and
 **Fig 2. Concept draft of the interactive drag and drop simulation of x86-64**
 
 The simulator will allow the audience to simulate basic x86-64 SASM instructions such as MOV, ADD, and INC instructions demonstrating the use of the different registers (8-bit, 16-bit, 32-bit, 64-bit).
+
 ---
 
 ## Mobile-Responsive Layout (if possible)
