@@ -2,7 +2,7 @@
 # CSARCH2 Virtual Exhibit Case Proposal
 
 # Link to Proposal Document
-[Propsal Document](CSARCH2_Proposal_Group7.pdf)
+[Proposal Document](CSARCH2_Proposal_Group7.pdf)
 
 # Title
 “From 0's and 1's to Assembly: History of the x86-64 CISC Assembly Language”
