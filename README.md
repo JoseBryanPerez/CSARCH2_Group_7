@@ -2,7 +2,7 @@
 # CSARCH2 Virtual Exhibit Case Proposal
 
 # Title
-“From 0s to 1s to Assembly: The History of  Programming and Assembly Language”
+“"History of the x86-64 CISC Assembly Language"”
 
 ## Member Roster
 1. Bactong Gabrielle Joei Vasquez
@@ -40,10 +40,10 @@ During 1965-1977, CDC 6600 was considered the first supercomputer. It has the fa
 **How it all led to the x86-64 NASM Assembly Language**
 	
 By the late 1960s to early 1970s, software was becoming more complex while memory remained expensive. This forced hardware engineers to develop CISC with the ultimate goal of reducing the number of instructions a processor needed to execute for a task (Alheraki, 2025). Other goals were: 
-1.) Increase code density
-2.) Simplify programming
-3.) Reduce compiler workload
-4.) Improve productivity
+1. Increase code density
+2. Simplify programming
+3. Reduce compiler workload
+4. Improve productivity
 The development of CISC introduced Intel 8080, which would then introduce the x86-64 ISA, with the evolution of 64-bit registers.
 
 **Evolution of Registers and their Processors**
@@ -58,20 +58,19 @@ With its evolution, naturally came the 32-bit registers as it extended the old 1
 ## Tech Stack Plan
 **The following are the intended interactive elements for the exhibit:** 
 
-The first interactive element of our exhibit would be an **interactive timeline of the first, second, third, fourth, and fifth generations of assembly languages.** This will be done by visually presenting the audience with a timeline. In the timeline, the timeline dates would be presented as a “bubble”, and the audience would be able to click them to learn more information. 
+a. The first interactive element of our exhibit would be an **interactive timeline of the early key machines and their ISAs** such as the ENIAC, UNIVAC I, IBM 701, and CDC 6600, and how they all lead to the emergence of CISC and the invention of the x86-64 NASM AL. This will be done by visually presenting the audience with a timeline. In the timeline, the timeline dates would be presented as a “bubble”, and the audience would be able to click them to learn more information. 
 
 ![Image of Figure 1 about the first interactive element](images/Figure1.png)
 
 **Fig 1. Concept draft of the interactive timeline of assembly language** 
 
-The second interactive element of our exhibit would be an interactive drag and drop simulation of coding with an x86-64 assembly language. This would be similar to the popular programming language and site “scratch” (See https://scratch.mit.edu/). 
+The second interactive element of our exhibit would be an **interactive drag and drop simulation of coding with an x86-64 NASM assembly language.** This would be similar to the popular programming language and site “scratch” (See https://scratch.mit.edu/)
 
 ![Image of Figure 2 about the second interactive element](images/Figure2.png)
 			
 **Fig 2. Concept draft of the interactive drag and drop simulation of x86-64**
 
-The simulator will allow the audience to simulate basic x86-64 SASM instructions such as MOV, ADD, and INC instructions. This way, the audience who are not yet familiar with coding with assembly language get a feel of coding their first program even through a simulation. 
-
+The simulator will allow the audience to simulate basic x86-64 SASM instructions such as MOV, ADD, and INC instructions demonstrating the use of the different registers (8-bit, 16-bit, 32-bit, 64-bit).
 ---
 
 ## Mobile-Responsive Layout (if possible)
