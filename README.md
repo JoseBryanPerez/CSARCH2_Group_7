@@ -2,7 +2,7 @@
 # CSARCH2 Virtual Exhibit Case Proposal
 
 # Title
-“History of the x86-64 CISC Assembly Language”
+“From 0s to 1s to Assembly: History of the x86-64 CISC Assembly Language”
 
 ## Member Roster
 1. Bactong Gabrielle Joei Vasquez
@@ -43,7 +43,8 @@ By the late 1960s to early 1970s, software was becoming more complex while memor
 1. Increase code density
 2. Simplify programming
 3. Reduce compiler workload
-4. Improve productivity
+4. Improve productivity  
+
 The development of CISC introduced Intel 8080, which would then introduce the x86-64 ISA, with the evolution of 64-bit registers.
 
 **Evolution of Registers and their Processors**
@@ -99,7 +100,7 @@ The style guide consists of elements such as the **text styles and color palette
 
 
 References:
-Alheraki, A. (2025). The history of assembly language and CPU architectures. simplifycpp. https://simplifycpp.org/books/Assembly_Language_History.pdf 	
+Alheraki, A. (2025). The history of assembly language and CPU architectures. simplifycpp. https://simplifycpp.org/books/Assembly_Language_History.pdf  	
 Evans, D. (n.d.). X86 assembly guide. Guide to x86 Assembly. https://www.cs.virginia.edu/~evans/cs216/guides/x86.html 
 
 Introduction to x86 Assembly Programming. Adwaith’s Chronicles. (2018, August 12). https://www.agautham.io/rebeseries/2018/08/12/introduction-to-x86-assembly-programming.html 
