@@ -1,0 +1,89 @@
+"use client";
+
+import React, { useEffect, useRef, useState } from 'react';
+import * as Blockly from 'blockly/core';
+import * as libraryBlocks from 'blockly/blocks';
+import { javascriptGenerator } from 'blockly/javascript';
+import * as En from 'blockly/msg/en';
+Blockly.setLocale(En);
+
+export default function AssemblyEditor() {
+    const blocklyDiv = useRef(null);
+    const [nasmCode, setNasmCode] = useState('');
+
+    useEffect(() => {
+        if (!blocklyDiv.current) return;
+
+        // BLOCK DEFINITIONS //
+
+        // MOV REG, REG block
+        Blockly.Blocks['mov_reg'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("MOV")
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "DEST")
+                    .appendField(",")
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "SRC");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(210);
+                this.setTooltip("Move contents of source register into destination register.");
+            }
+        };
+
+        // BLOCK GENERATORS //
+        javascriptGenerator.forBlock['mov_reg'] = function(block) {
+            const dest = block.getFieldValue('DEST').toLowerCase();
+            const src = block.getFieldValue('SRC').toLowerCase();
+            return `    mov ${dest}, ${src}\n`;
+        };
+
+        // TOOLBOX DEFINITION //
+        const toolBox = {
+            // toolbox with no categories for now
+            kind: 'flyoutToolbox',
+
+            // the blocks that we have for now
+            contents: [
+                {
+                    kind: 'block',
+                    type: 'mov_reg',
+                },
+            ]
+
+        };
+
+        // WORKSPACE SETUP //
+        const workspace = Blockly.inject(blocklyDiv.current, {
+            toolbox: toolBox,
+            trashcan: true,
+        });
+
+        // HANDLE CHANGES //
+        const updateCode = () => {
+            const code = javascriptGenerator.workspaceToCode(workspace);
+            const output = `${code}`;
+            setNasmCode(output);
+        };
+        workspace.addChangeListener(updateCode);
+
+        return () => {
+            workspace.dispose();
+        };
+    }, []);
+
+    // MAIN // 
+    return (
+    <div className="flex h-[500px] w-full gap-4 bg-stone-100 p-4 rounded-xl border border-stone-200">
+        {/* workspace! */}
+        <div ref={blocklyDiv} className="w-2/3 h-full rounded border bg-white shadow-inner" />
+        
+        {/* output display */}
+        <div className="w-1/3 h-full flex flex-col">
+            <pre className="flex-grow bg-stone-950 text-emerald-400 p-4 font-mono text-xs rounded shadow overflow-auto whitespace-pre">
+            {nasmCode || "; block will show here temporarily (while i havent coded output yet)"}
+            </pre>
+        </div>
+    </div>
+  );
+}
