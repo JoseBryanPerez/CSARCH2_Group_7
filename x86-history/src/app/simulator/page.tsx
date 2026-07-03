@@ -3,18 +3,18 @@
 import React from 'react'
 import dynamic from 'next/dynamic';
 
+
 // wont load immediately, uses CSR so it updates client side
 const AssemblyEditor = dynamic(
-  () => import('../../components/AssemblyEditor'),
+  () => import('../../../components/AssemblyEditor'),
   { 
     ssr: false, 
   }
 );
-
-export default function page() {
-  return (
-    <main className="p-8">
+export default function SimulatorPage() {
+    return (
+    <div className="p-8">
       <AssemblyEditor />
-    </main>
+    </div>
   );
 }
