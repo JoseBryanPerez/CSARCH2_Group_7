@@ -5,6 +5,8 @@ import * as Blockly from 'blockly/core';
 import * as libraryBlocks from 'blockly/blocks';
 import { javascriptGenerator } from 'blockly/javascript';
 import * as En from 'blockly/msg/en';
+import Link from 'next/link';
+
 Blockly.setLocale(En);
 
 export default function AssemblyEditor() {
@@ -74,16 +76,28 @@ export default function AssemblyEditor() {
 
     // MAIN // 
     return (
-    <div className="flex h-[500px] w-full gap-4 bg-stone-100 p-4 rounded-xl border border-stone-200">
-        {/* workspace! */}
-        <div ref={blocklyDiv} className="w-2/3 h-full rounded border bg-white shadow-inner" />
-        
-        {/* output display */}
-        <div className="w-1/3 h-full flex flex-col">
-            <pre className="flex-grow bg-stone-950 text-emerald-400 p-4 font-mono text-xs rounded shadow overflow-auto whitespace-pre">
-            {nasmCode || "; block will show here temporarily (while i havent coded output yet)"}
-            </pre>
+        //Hi gabe, just added the back button here
+    <div className="flex flex-col items-left justify-center min-h-screen bg-stone-200 p-4 ">
+        <div className="flex h-[500px] w-full gap-4 bg-stone-100 p-4 rounded-xl border border-stone-200">
+            {/* workspace! */}
+            <div ref={blocklyDiv} className="w-2/3 h-full rounded border bg-white shadow-inner" />
+            
+            {/* output display */}
+                <div className="w-1/3 h-full flex flex-col">
+                    <pre className="flex-grow bg-stone-950 text-emerald-400 p-4 font-mono text-xs rounded shadow overflow-auto whitespace-pre">
+                    {nasmCode || "; block will show here temporarily (while i havent coded output yet)"}
+                    </pre>
+                </div>
+        </div>
+        {/* back button */}
+        <div>
+            <Link href="/">
+                <button className="bg-yellow-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded gap-2 mt-4">
+                    Back
+                </button>
+            </Link>
         </div>
     </div>
+    
   );
 }
