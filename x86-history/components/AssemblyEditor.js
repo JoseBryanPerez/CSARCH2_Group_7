@@ -144,6 +144,33 @@ export default function AssemblyEditor() {
         };
     }, []);
 
+    // MAIN SIMULATION //
+    const runSimulation = () => {
+        
+        const regs = { ...registers }; //copy of registers
+        const lines = nasmCode.split("\n").map(line => line.trim()).filter(line => line.length > 0); //split lines into instructions
+        console.log(lines);
+
+        //execute line by line
+        lines.forEach(line => {
+            const parts = line.split(/[ ,]+/);
+
+        // MOV
+        // ===it works but nothing actually happens (moves 0 to 0), need to implement immediate value block===
+        if (parts[0] === "mov") {
+
+            const dest = parts[1];
+            const src = parts[2];
+
+            //check if valid register
+            if (regs[src] !== undefined) {
+                regs[dest] = regs[src];
+            }
+        }
+    });
+        setRegisters(regs);
+    };
+
     // MAIN // 
     return (
         //Hi gabe, just added the back button here
@@ -181,6 +208,14 @@ export default function AssemblyEditor() {
 
             </div>
         </div>
+
+        {/* run simulation button */}
+        <div className="flex gap-4 mt-4">
+            <button onClick={runSimulation}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Run
+            </button>
+        </div>
+        
         {/* back button */}
         <div>
             <Link href="/">
