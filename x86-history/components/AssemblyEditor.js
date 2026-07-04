@@ -11,7 +11,10 @@ Blockly.setLocale(En);
 
 export default function AssemblyEditor() {
     const blocklyDiv = useRef(null);
-    const [nasmCode, setNasmCode] = useState('');
+    const [nasmCode, setNasmCode] = useState("");
+
+    const [registers, setRegisters] = useState({rax: 0, rbx: 0, rcx: 0, rdx: 0}); // 4 registers
+    const [memory, setMemory] = useState(Array(16).fill(0))                       // 16 memory loc
 
     useEffect(() => {
         if (!blocklyDiv.current) return;
@@ -145,16 +148,38 @@ export default function AssemblyEditor() {
     return (
         //Hi gabe, just added the back button here
     <div className="flex flex-col items-left justify-center min-h-screen bg-stone-200 p-4 ">
-        <div className="flex h-[500px] w-full gap-4 bg-stone-100 p-4 rounded-xl border border-stone-200">
+        <div className="flex h-[600px] w-full gap-4 bg-stone-100 p-4 rounded-xl border border-stone-200">
             {/* workspace! */}
             <div ref={blocklyDiv} className="w-2/3 h-full rounded border bg-white shadow-inner" />
             
             {/* output display */}
                 <div className="w-1/3 h-full flex flex-col">
                     <pre className="flex-grow bg-stone-950 text-emerald-400 p-4 font-mono text-xs rounded shadow overflow-auto whitespace-pre">
-                    {nasmCode || "; block will show here temporarily (while i havent coded output yet)"}
+                <h2 className="font-bold mb-2">Output Display</h2>
                     </pre>
+
+                {/* output display: registers */}
+            <div className="flex-grow bg-stone-950 text-emerald-400 p-4 font-mono text-xs rounded shadow overflow-auto whitespace-pre">
+                <h2 className="font-bold mb-2">Registers</h2>
+
+                    <p>RAX: {registers.rax}</p>
+                    <p>RBX: {registers.rbx}</p>
+                    <p>RCX: {registers.rcx}</p>
+                    <p>RDX: {registers.rdx}</p>
                 </div>
+
+                {/* output display: memory */}
+            <div className="flex-grow bg-stone-950 text-emerald-400 p-4 font-mono text-xs rounded shadow overflow-auto whitespace-pre">
+                <h2 className="font-bold mb-2">Memory</h2>
+
+                {memory.map((value, index) => (
+                <div key={index} className="flex justify-between text-sm font-mono">
+                    <span>[{index}]</span>
+                    <span>{value}</span>
+                </div>))}
+            </div>
+
+            </div>
         </div>
         {/* back button */}
         <div>
