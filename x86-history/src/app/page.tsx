@@ -7,6 +7,7 @@ import HugeCircle from '../../components/view_mainPage/HugeCircle';
 import TimelineCircle from '../../components/view_mainPage/TimelineCircle';
 import Panel from '../../components/view_mainPage/Panel';
 import CreatorPanel from '../../components/view_mainPage/CreatorPanel';
+import AssemblyEditor from '../../components/AssemblyEditor';
 
 
 export default function page() {

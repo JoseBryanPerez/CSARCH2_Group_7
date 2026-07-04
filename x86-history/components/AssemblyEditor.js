@@ -18,6 +18,31 @@ export default function AssemblyEditor() {
 
         // BLOCK DEFINITIONS //
 
+        // ret block
+        Blockly.Blocks['ret'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("ret");
+                this.setPreviousStatement(true, null);
+            }
+        }
+
+        // segment block
+        Blockly.Blocks['section'] = {
+            init: function() {
+                this.appendEndRowInput()
+                    .appendField("section")
+                    .appendField(new Blockly.FieldDropdown([[".data", "DATA"], [".bss", "BSS"], [".text", "TEXT"]]), "SECTION");
+                this.appendStatementInput("CODE")
+                    .appendField();
+                this.appendDummyInput();
+                this.setColour(300);
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setTooltip("Define the basic structure of your SASM assembler program.");
+            }
+        }
+
         // MOV REG, REG block
         Blockly.Blocks['mov_reg'] = {
             init: function() {
@@ -33,11 +58,41 @@ export default function AssemblyEditor() {
             }
         };
 
+        // ADD REG, REG Block
+        Blockly.Blocks['add_reg'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("ADD")
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "DEST")
+                    .appendField(",")
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "SRC");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(150);
+                this.setTooltip("Add contents of source register to destination register.");
+            }
+        }
+
         // BLOCK GENERATORS //
         javascriptGenerator.forBlock['mov_reg'] = function(block) {
             const dest = block.getFieldValue('DEST').toLowerCase();
             const src = block.getFieldValue('SRC').toLowerCase();
             return `    mov ${dest}, ${src}\n`;
+        };
+
+        javascriptGenerator.forBlock['section'] = function(block) {
+            const section = block.getFieldValue('SECTION').toLowerCase();
+            return `    section ${section}`;
+        };
+
+        javascriptGenerator.forBlock['ret'] = function(block) {
+            return `    ret`;
+        };
+
+        javascriptGenerator.forBlock['add_reg'] = function(block) {
+            const dest = block.getFieldValue('DEST').toLowerCase();
+            const src = block.getFieldValue('SRC').toLowerCase();
+            return `    add ${dest}, ${src}\n`;
         };
 
         // TOOLBOX DEFINITION //
@@ -51,6 +106,18 @@ export default function AssemblyEditor() {
                     kind: 'block',
                     type: 'mov_reg',
                 },
+                {
+                    kind: 'block',
+                    type: 'section',
+                },
+                {
+                    kind: 'block',
+                    type: 'ret',
+                },
+                {
+                    kind: 'block',
+                    type: 'add_reg'
+                }
             ]
 
         };

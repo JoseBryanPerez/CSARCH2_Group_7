@@ -1,5 +1,8 @@
 "use client";
 
+import React from "react";
+
+
 export default function HugeCircle({target}:{target?:string}){
     const handleClick =()=>{
         if(target){
