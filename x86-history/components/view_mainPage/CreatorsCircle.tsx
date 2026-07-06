@@ -1,5 +1,8 @@
 "use client";
 
+import React from "react";
+
+
 export default function CreatorsCircle({name,image}:{name:string, image:string}){
     return (
         <div className="xl:w-[14vw] xl:h-[30vh] w-60 h-auto xl:flex flex flex-col  flex-wrap items-center justify-center gap-2 xl:p-10 p-2 transform hover:scale-120 transition-transform duration-300 ease-in-out">

@@ -8,6 +8,8 @@ import TimelineCircle from '../../components/view_mainPage/TimelineCircle';
 import Panel from '../../components/view_mainPage/Panel';
 import CreatorPanel from '../../components/view_mainPage/CreatorPanel';
 import Navigation from '../../components/view_mainPage/Navigation';
+import AssemblyEditor from '../../components/AssemblyEditor';
+
 
 export default function page() {
  return (

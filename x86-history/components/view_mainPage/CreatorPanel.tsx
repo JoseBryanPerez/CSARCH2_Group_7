@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import CreatorsCircle from "./CreatorsCircle";
 
 export default function CreatorPanel(){

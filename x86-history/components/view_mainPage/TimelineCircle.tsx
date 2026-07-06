@@ -1,5 +1,8 @@
 "use client";
 
+import React from "react";
+
+
 export default function TimelineCircle({image,text,target}:{image:string,text:string, target?:string}){
     const handleClick =()=>{
         if(target){
