@@ -11,6 +11,7 @@ import Navigation from '../../components/view_mainPage/Navigation';
 import AssemblyEditor from '../../components/AssemblyEditor';
 
 
+
 export default function page() {
  return (
   <div className="w-full min-h-screen bg-[#F3ECE1]">

@@ -12,7 +12,7 @@ export default function Navigation(){
     const [simulatorOpen, setSimulatorOpen] = useState(false);
     const handleClick=()=>setClick(!click);
     const content=<>
-   <div className="absolute z-50 h-auto w-full left-0 right-0 top-[76px] md:hidden bg-stone-100 backdrop-blur-lg bg-opacity-95 overflow-y-auto shadow-xl">
+   <div className="absolute z-50 h-auto w-full left-0 right-0 top-[60px] md:hidden bg-stone-100 backdrop-blur-lg bg-opacity-95 overflow-y-auto shadow-xl">
         <ul className="text-center text-xl flex flex-col gap-4">
             <Link href=""><li className=" h-[80px] flex items-center justify-center text-black"> Overview </li></Link>
                 <div className="group relative flex flex-col items-center justify-center">
@@ -55,16 +55,16 @@ export default function Navigation(){
      </div>
                     </>
     return(
-        <nav className="fixed  z-50 top-0 left-0 right-0 bg-white shadow-md">
-            <div className=" h-[7vh] w-full px-10 flex justify-between items-center">
+        <nav className="fixed z-50 top-0 left-0 right-0 bg-white shadow-md">
+            <div className=" h-[7vh] w-full px-2 gap-10 flex justify-end items-center">
                 <div className="flex items-center">
-                    <h2 className="text-3xl font bold text-black"> CSARCH2</h2>
+                    <h2 className="text-[clamp(10px,2vw,15px)] font bold text-black"> CSARCH2</h2>
                 </div>
-                <div className="hidden md:flex flex-1 justify-end items-center font-normal ">
-                    <ul className="flex text-[25px] ">
+                <div className="hidden md:flex flex-1 justify-betwdeen items-center font-normal ">
+                    <ul className="flex text-[clamp(10px,2vw,15px)] ">
                         
                         {/* Overview */}
-                        <Link href=""><li className=" h-[80px] px-20  flex items-center hover:bg-[#E5DCD0] text-black transition cursor-pointer "> Overview </li></Link>
+                        <Link href=""><li className="h-[80px] px-20 flex items-center hover:bg-[#E5DCD0] text-black transition cursor-pointer "> Overview </li></Link>
                         
                         {/*Timeline Bar with drop down */}
                             <div className="group relative hover:bg-[#E5DCD0]"> {/*Add the font at this line to change the font style */}
