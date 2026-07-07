@@ -11,7 +11,7 @@ export default function overview(){
                 <h3 className="text-[clamp(1.50rem,0.5vw+0.8rem,1.75rem)] text-justify font-[Perpetua] text-black">[Insert text]</h3>
             </div>
             <div className="min-h-screen md:w-[50vh] w-[20vh] bg-white flex justify-center items-center">
-                <img src="/image/overview" alt="overviewImage"></img>
+                <img src="/images/overview.png" alt="overviewImage"></img>
             </div>
             </div>
               {/*Helper secction that slowly changes the color of the transition block */}

@@ -58,8 +58,8 @@ export default function page() {
             animationTimeline:'view()', 
             animationRange:'entry 5% cover 35%'}}>
     {/*insert the text of the info in the insert text here */}
-      <h2 className="text-[clamp(1.75rem,2vw+1rem,2.25rem)] text-left font-[Georgia] text-black">[INSERT TEXT HERE]</h2>
-       <h2 className="text-[clamp(1.50rem,0.5vw+0.8rem,1.75rem)] text-justify font-[Perpetua] text-black">[INSERT TEXT HERE]</h2>
+      <h2 className="text-[clamp(1.75rem,2vw+1rem,2.25rem)] text-left font-[Georgia] text-black">Evolution of the x86 ISA </h2>
+       <h2 className="text-[clamp(1.50rem,0.5vw+0.8rem,1.75rem)] text-justify font-[Perpetua] text-black">The information below provides on how the ISA evolves starting from the earliest creation of electronic computer to the multiple assemblers developed for x86 recently.</h2>
     </div>
 
     {/*Panel Section, where the user can access more information about the timeline */}  
