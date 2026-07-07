@@ -26,7 +26,7 @@ export default async function panelTemplate({params}:Page){
                 {/*Simulator Section */}
                 <div className="h-auto w-full bg-white">
                     <div className="flex justify-between">
-                        <div className="w-[50vw] flex flex-col xl:p-20 p-10 gap-5 ">
+                        <div className="w-[80vw] flex flex-col xl:p-20 p-10 gap-5 ">
                             <h3 className="text-black text-[clamp(1.75rem,2vw+1rem,2.25rem)] text-left font-[Georgia]"> SIMULATOR </h3>
                             <h3 className="text-[clamp(1.50rem,0.5vw+0.8rem,1.75rem)] text-justify font-[Perpetua] text-black break-words "> {content.simulatorBody} </h3>
                             <div className=" flex items-left">
@@ -38,7 +38,7 @@ export default async function panelTemplate({params}:Page){
                             </div>
                         </div>
                         <div>
-                            <div className="bg-black h-full w-[40vw]">
+                            <div className="bg-black h-full md:w-[40vw] w-[30vw]">
                                 <img src={content.image} className="h-full w-full flex items-center"/>
                             </div>
                             
