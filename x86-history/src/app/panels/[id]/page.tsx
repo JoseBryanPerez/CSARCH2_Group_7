@@ -13,8 +13,8 @@ export default async function panelTemplate({params}:Page){
       <div className="w-full min-h-screen bg-[#F3ECE1] gap-10">
             <Navigation/>
              {/*Main Image Place Holder */}
-            <div className="xl:h-[35vh] h-[30vh] bg-white">
-                    <img src={content.image} alt="ImageForENIAC"/>
+            <div className="md:h-[50vh] h-[30vh] bg-white overflow-hidden flex items-center">
+                    <img src={content.image} alt="ImageForENIAC" className="h-screen w-screen"/>
             </div>
             <div className="min-h-screen w-full flex flex-col gap-10">
                 {/*Title and Content */}
@@ -26,7 +26,7 @@ export default async function panelTemplate({params}:Page){
                 {/*Simulator Section */}
                 <div className="h-auto w-full bg-white">
                     <div className="flex justify-between">
-                        <div className="w-[50vw] flex flex-col xl:p-20 p-10 ">
+                        <div className="w-[50vw] flex flex-col xl:p-20 p-10 gap-5 ">
                             <h3 className="text-black text-[clamp(1.75rem,2vw+1rem,2.25rem)] text-left font-[Georgia]"> SIMULATOR </h3>
                             <h3 className="text-[clamp(1.50rem,0.5vw+0.8rem,1.75rem)] text-justify font-[Perpetua] text-black break-words "> {content.simulatorBody} </h3>
                             <div className=" flex items-left">
@@ -39,7 +39,7 @@ export default async function panelTemplate({params}:Page){
                         </div>
                         <div>
                             <div className="bg-black h-full w-[40vw]">
-                                <img src={content.image}/>
+                                <img src={content.image} className="h-full w-full flex items-center"/>
                             </div>
                             
                         </div>
