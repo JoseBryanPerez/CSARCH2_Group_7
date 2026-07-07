@@ -101,8 +101,31 @@ The style guide consists of elements such as the **text styles and color palette
 
 **Fig 5. Concept style of layouts and design for the exhibit**
 
+## Things Done: The development process
 
-References:
+During this time of development, the group focused on researching key machines and their ISAs and how the evolution of these computers led to the x86-64 NASM Assembly Language. The group implemented the initial layout of the website (which is subject to change), and the partial completion of the interactive drag and drop simulator of x86-64. The stack used for this project is Next.js with Tailwind CSS. For the interactive simulator, the group used the Blockly library (Blockly). As of now, the simulator contains 4 registers and 16 memory locations with simple instructions of MOV and ADD.
+
+**Challenges and Things Learned**
+
+In implementing the interactive drag and drop simulator, the main challenge was understanding the library documentation and learning how to integrate this in Next.js with Tailwind CSS. Fortunately, Blockly documentation provided comprehensive guides in building Blockly applications from scratch. From there, the group learned about react hooks in displaying Blockly code (which is vanilla javascript), virtual DOMS, and how to learn from library documentations online.
+
+**Things to be done on the final submission**
+
+The following are features to be improved or implemented for the full completion of the project: 
+Improvement of design and layout
+Full completion of drag and drop NASM simulator
+Implementation of INC and SUB block
+Implementation of variable declaration blocks
+Implementation of different registers (8-bit, 16-bit, 32-bit, 64-bit)
+Implementation of Error handling and input handling
+Fixing of bugs 
+
+**Disclosure on the use of AI/LLM**
+
+AI was used only as a reference tool for quick lookups of correct syntax and debugging in front-end development. It was not used to blindly generate entire sections of code, nor was it used to generate content for the website. Instead, it was used to check the clarity and the accuracy of the information found on the website.
+
+
+## References:
 Alheraki, A. (2025). The history of assembly language and CPU architectures. simplifycpp. https://simplifycpp.org/books/Assembly_Language_History.pdf  
 Evans, D. (n.d.). X86 assembly guide. Guide to x86 Assembly. https://www.cs.virginia.edu/~evans/cs216/guides/x86.html 
 
