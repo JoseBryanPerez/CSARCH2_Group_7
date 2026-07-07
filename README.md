@@ -101,6 +101,10 @@ The style guide consists of elements such as the **text styles and color palette
 
 **Fig 5. Concept style of layouts and design for the exhibit**
 
+## Website Deployment Link
+
+https://csarch2-group-7.onrender.com/
+
 ## Things Done: The development process
 
 During this time of development, the group focused on researching key machines and their ISAs and how the evolution of these computers led to the x86-64 NASM Assembly Language. The group implemented the initial layout of the website (which is subject to change), and the partial completion of the interactive drag and drop simulator of x86-64. The stack used for this project is Next.js with Tailwind CSS. For the interactive simulator, the group used the Blockly library (Blockly). As of now, the simulator contains 4 registers and 16 memory locations with simple instructions of MOV and ADD.
