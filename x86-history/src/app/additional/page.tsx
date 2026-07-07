@@ -5,12 +5,26 @@ export default function overview(){
     return(
         <div className="min-h-screen w-full bg-[#F3ECE1]">
             <Navigation/>
-            <div className="flex justify-between items-center">
-            <div className="min-h-screen w-full flex flex-col items-left justify-center p-10 gap-5">
+            <div className="min-h-screen flex justify-between">
+            <div className="h-auto w-full flex flex-col items-left justify-center items-left p-10 py-20 gap-5">
                 <h1 className="text-[clamp(1.75rem,2vw+1rem,2.25rem)] text-left font-[Georgia] text-black">Overview</h1>
-                <h3 className="text-[clamp(1.50rem,0.5vw+0.8rem,1.75rem)] text-justify font-[Perpetua] text-black">[Insert text]</h3>
+                <h3 className="text-[clamp(1.50rem,0.5vw+0.8rem,1.75rem)] text-justify font-[Perpetua] text-black">
+                    Assembly Language is a low-level language that allows programmers to communicate directly with computer hardware, offering more speed, space,
+                    and capability than most high-level languages. But before x86-64, ARM, MIPS–and the more popular assembly languages used today, computer scientists 
+                    had to communicate directly with hardware using long strings of 0s and 1s. The history of assembly language can be traced back several decades, evolving 
+                    from Alan Turing’s Enigma code machine in 1939, John Von Neumann’s stored-program concept in the 1940s, Maruice Wilkes EDSAC in 1949, and Grace Hopper’s 
+                    symbolic programming concepts in 1952 to the well-known assembly languages we use today, assembly language has seen many breakthroughs and contributions 
+                    to modern technology, one of them being the invention of x86-64 NASM assembly language (Alheraki, 2025).
+                    <br/><br/> 
+                    Thus, our exhibit’s topic will focus on the history of one of the more popular assembly languages today, 
+                    the x86-64 NASM assembly language. Our exhibit aims to inform the audience of the evolution of the x86-64 instruction set architecture (ISA),
+                    starting from key machines and their ISAs such as ENIAC, UNIVAC I, IBM 701, and CDC 6600, and how they all lead to the emergence of CISC and the 
+                    invention of the x86-64 NASM AL. This will be done through an interactive presentation about the timeline leading up to the x86-64 NASM AL along with an 
+                    interactive drag and drop simulation of how to program with an x86-64 NASM assembly language in SASM and how demonstrates 8-bit, 16-bit, 32-bit and 64-bit 
+                    registers. Additionally, the UI theme would closely follow a professional site to immerse the audience.
+                </h3>
             </div>
-            <div className="h-screen md:w-[50vh] w-[20vh] bg-white flex justify-center items-center drop-shadow-2xl">
+            <div className="h-auto md:w-[50vw] w-[30vw] bg-white flex justify-center  drop-shadow-2xl">
                 <img src="/images/overview.png" alt="overviewImage" className="w-full h-full object-cover object-center"></img>
             </div>
             </div>
