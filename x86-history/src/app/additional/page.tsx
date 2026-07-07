@@ -10,8 +10,8 @@ export default function overview(){
                 <h1 className="text-[clamp(1.75rem,2vw+1rem,2.25rem)] text-left font-[Georgia] text-black">Overview</h1>
                 <h3 className="text-[clamp(1.50rem,0.5vw+0.8rem,1.75rem)] text-justify font-[Perpetua] text-black">[Insert text]</h3>
             </div>
-            <div className="min-h-screen md:w-[50vh] w-[20vh] bg-white flex justify-center items-center">
-                <img src="/images/overview.png" alt="overviewImage"></img>
+            <div className="h-screen md:w-[50vh] w-[20vh] bg-white flex justify-center items-center drop-shadow-2xl">
+                <img src="/images/overview.png" alt="overviewImage" className="w-full h-full object-cover object-center"></img>
             </div>
             </div>
               {/*Helper secction that slowly changes the color of the transition block */}
