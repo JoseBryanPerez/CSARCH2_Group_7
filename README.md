@@ -146,6 +146,8 @@ Freiberger, P. A., & Swaine, M. R. (n.d.). UNIVAC | computer. Encyclopedia Brita
 
 GeeksforGeeks. (2024, February 26). What Is the Full Form of UNIVAC? GeeksforGeeks. https://www.geeksforgeeks.org/computer-organization-architecture/what-is-the-full-form-of-univac/
 
+George Gray (1999). UNIVAC I Instruction Set - Folklore  https://ptacts.uspto.gov/ptacts/public-informations/petitions/1464240/download-documents?artifactId=Wc9j3Pypuj72GUOhGdt8ZP0WHA4pvFj-ndms5ZVMRLqWQvnHBEio1TQ 
+
 History.com Editors. (2010, July 20). UNIVAC, the first commercially produced digital computer in the U.S, is dedicated | June 14, 1951 | HISTORY. History. https://www.history.com/this-day-in-history/june-14/univac-computer-dedicated
 
 HP. (2022). Computer History: All About the ENIAC. Hp.Com; HP. https://www.hp.com/gb-en/shop/tech-takes/computer-history-all-about-the-eniac
@@ -153,8 +155,6 @@ HP. (2022). Computer History: All About the ENIAC. Hp.Com; HP. https://www.hp.co
 IBM. (n.d.). IBM 700 Series. Www.Ibm.Com. Retrieved July 7, 2026, from https://www.ibm.com/history/700
 
 Introduction to x86 Assembly Programming. Adwaith's Chronicles. (2018, August 12). https://www.agautham.io/rebeseries/2018/08/12/introduction-to-x86-assembly-programming.html
-
-https://ptacts.uspto.gov/ptacts/public-informations/petitions/1464240/download-documents?artifactId=Wc9j3Pypuj72GUOhGdt8ZP0WHA4pvFj-ndms5ZVMRLqWQvnHBEio1TQ
 
 Simon Tatham: About Me. (2018). Greenend.Org.Uk. https://www.chiark.greenend.org.uk/~sgtatham/me.html
 
