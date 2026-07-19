@@ -96,11 +96,41 @@ export default function AssemblyEditor() {
                     .appendField("ADD")
                     .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "DEST")
                     .appendField(",")
-                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "SRC");
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"], ["Custom", "CUSTOM"]]), "SRC_DROP")
+                    .appendField(new Blockly.FieldLabel("0x"), "HEX_PREFIX")
+                    .appendField(new Blockly.FieldTextInput("0"), "HEX_VALUE"); 
                 this.setPreviousStatement(true, null);
                 this.setNextStatement(true, null);
                 this.setColour(150);
                 this.setTooltip("Add contents of source register to destination register.");
+
+                
+                // Hide text fields for now
+                this.getField("HEX_PREFIX").setVisible(false);
+                this.getField("HEX_VALUE").setVisible(false);
+
+                this.setOnChange(function(event) {
+                // check for changes in MOV block
+                if (event.type === Blockly.Events.BLOCK_CHANGE && event.blockId === this.id) {
+                    // if change was made in drop down
+                    if (event.name === "SRC_DROP") {
+                        const dropdownField = this.getField("SRC_DROP");
+                        const prefixField = this.getField("HEX_PREFIX");
+                        const valueField = this.getField("HEX_VALUE");
+
+                        // if custom text
+                        if (event.newValue === "CUSTOM") {
+                            dropdownField.setVisible(false);
+                            prefixField.setVisible(true);
+                            valueField.setVisible(true);
+                        } else {
+                            dropdownField.setVisible(true);
+                            prefixField.setVisible(false);
+                            valueField.setVisible(false);
+                        }
+                        this.render();
+                    }
+                }}); 
             }
         }
 
@@ -110,11 +140,41 @@ export default function AssemblyEditor() {
                     .appendField("SUB")
                     .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "DEST")
                     .appendField(",")
-                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "SRC");
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"], ["Custom", "CUSTOM"]]), "SRC_DROP")
+                    .appendField(new Blockly.FieldLabel("0x"), "HEX_PREFIX")
+                    .appendField(new Blockly.FieldTextInput("0"), "HEX_VALUE"); 
                 this.setPreviousStatement(true, null);
                 this.setNextStatement(true, null);
                 this.setColour(150);
                 this.setTooltip("Subtract contents of source register from destination register.");
+
+                
+                // Hide text fields for now
+                this.getField("HEX_PREFIX").setVisible(false);
+                this.getField("HEX_VALUE").setVisible(false);
+
+                this.setOnChange(function(event) {
+                // check for changes in MOV block
+                if (event.type === Blockly.Events.BLOCK_CHANGE && event.blockId === this.id) {
+                    // if change was made in drop down
+                    if (event.name === "SRC_DROP") {
+                        const dropdownField = this.getField("SRC_DROP");
+                        const prefixField = this.getField("HEX_PREFIX");
+                        const valueField = this.getField("HEX_VALUE");
+
+                        // if custom text
+                        if (event.newValue === "CUSTOM") {
+                            dropdownField.setVisible(false);
+                            prefixField.setVisible(true);
+                            valueField.setVisible(true);
+                        } else {
+                            dropdownField.setVisible(true);
+                            prefixField.setVisible(false);
+                            valueField.setVisible(false);
+                        }
+                        this.render();
+                    }
+                }}); 
             }
         }
 
