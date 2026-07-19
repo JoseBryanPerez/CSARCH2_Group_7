@@ -104,6 +104,50 @@ export default function AssemblyEditor() {
             }
         }
 
+        Blockly.Blocks['sub_reg'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("SUB")
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "DEST")
+                    .appendField(",")
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "SRC");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(150);
+                this.setTooltip("Subtract contents of source register from destination register.");
+            }
+        }
+
+
+        Blockly.Blocks['inc_reg'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("INC")
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "DEST")
+                    .appendField(",")
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "SRC");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(150);
+                this.setTooltip("Increment the value in the destination register.");
+            }
+        }
+
+
+        Blockly.Blocks['dec_reg'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("DEC")
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "DEST")
+                    .appendField(",")
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "SRC");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(150);
+                this.setTooltip("Decrement the value in the destination register.");
+            }
+        }
+
         // BLOCK GENERATORS //
         javascriptGenerator.forBlock['mov_reg'] = function(block) {
             const dest = block.getFieldValue('DEST').toLowerCase();
@@ -135,6 +179,22 @@ export default function AssemblyEditor() {
             return `    add ${dest}, ${src}\n`;
         };
 
+        javascriptGenerator.forBlock['sub_reg'] = function(block) {
+            const dest = block.getFieldValue('DEST').toLowerCase();
+            const src = block.getFieldValue('SRC').toLowerCase();
+            return `    sub ${dest}, ${src}\n`;
+        };
+
+        javascriptGenerator.forBlock['inc_reg'] = function(block) {
+            const dest = block.getFieldValue('DEST').toLowerCase();
+            return `    inc ${dest}\n`;
+        };
+
+        javascriptGenerator.forBlock['dec_reg'] = function(block) {
+            const dest = block.getFieldValue('DEST').toLowerCase();
+            return `    dec ${dest}\n`;
+        };
+
         // COMBINING OF CODE BLOCKS IN THE WORKSPACE //
         javascriptGenerator.scrub_ = function(block, code, thisBlockOnly) {
             // gets next block
@@ -155,7 +215,10 @@ export default function AssemblyEditor() {
                 { kind: 'block', type: 'mov_reg', },
                 { kind: 'block', type: 'section', },
                 { kind: 'block', type: 'ret', },
-                { kind: 'block', type: 'add_reg' }
+                { kind: 'block', type: 'add_reg' },
+                { kind: 'block', type: 'sub_reg' },
+                { kind: 'block', type: 'inc_reg' },
+                { kind: 'block', type: 'dec_reg' },
             ]
         };
 
@@ -246,6 +309,33 @@ export default function AssemblyEditor() {
                         if (!isNaN(numericValue)) {
                             regs[dest] = regs[dest] + numericValue;
                         }
+                    }
+                }
+
+                if (parts[0] === "sub") {
+                    const dest = parts[1];
+                    const src = parts[2];
+                    if (regs[src] !== undefined) {
+                        regs[dest] = regs[dest] - regs[src];
+                    } else {
+                        const numericValue = src.startsWith("0x") ? parseInt(src, 16) : parseInt(src, 10);
+                        if (!isNaN(numericValue)) {
+                            regs[dest] = regs[dest] - numericValue;
+                        }
+                    }
+                }
+
+                if (parts[0] === "inc") {
+                    const dest = parts[1];
+                    if (regs[dest] !== undefined) {
+                        regs[dest]++;
+                    }
+                }
+
+                if (parts[0] === "dec") {
+                    const dest = parts[1];
+                    if (regs[dest] !== undefined) {
+                        regs[dest]--;
                     }
                 }
             }
