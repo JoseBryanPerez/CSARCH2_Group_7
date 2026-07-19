@@ -16,6 +16,54 @@ export default function AssemblyEditor() {
     const [registers, setRegisters] = useState({rax: 0, rbx: 0, rcx: 0, rdx: 0}); // 4 registers
     const [memory, setMemory] = useState(Array(16).fill(0))                       // 16 memory loc
 
+    // mapping of registers based on bit sizes
+    const mapRegister = {
+        rax: { base: "rax", size: 64 },
+        eax: { base: "rax", size: 32 },
+        ax: { base: "rax", size: 16 },
+        al: { base: "rax", size: 8 },
+        ah: { base: "rax", size: 8 },
+
+        rbx: { base: "rbx", size: 64 },
+        ebx: { base: "rbx", size: 32 },
+        bx: { base: "rbx", size: 16 },
+        bl: { base: "rbx", size: 8 },
+        bh: { base: "rbx", size: 8 },
+
+        rcx: { base: "rcx", size: 64 },
+        ecx: { base: "rcx", size: 32 },
+        cx: { base: "rcx", size: 16 },
+        cl: { base: "rcx", size: 8 },
+        ch: { base: "rcx", size: 8 },
+
+        rdx: { base: "rdx", size: 64 },
+        edx: { base: "rdx", size: 32 },
+        dx: { base: "rdx", size: 16 },
+        dl: { base: "rdx", size: 8 },
+        dh: { base: "rdx", size: 8 },
+    };
+
+    // read register value based on bit size and name
+    function readRegister(name, regs) {
+        const registerInfo = mapRegister[name.toLowerCase()];
+
+        if (!registerInfo) {return undefined;}
+        const value = regs[registerInfo.base];
+
+        switch(registerInfo.size) {
+            case 64: return value
+            case 32: return value & 0xFFFFFFFF
+            case 16: return value & 0xFFFF
+            case 8: 
+                if (name.endsWith('h')) {
+                    return (value >> 8) & 0xFF;
+                }
+                return value & 0xFF;
+                
+            default: return undefined;
+        }
+    }
+
     useEffect(() => {
         if (!blocklyDiv.current) return;
 
@@ -312,7 +360,6 @@ export default function AssemblyEditor() {
         let isInTextSection = false;
         let hasReturned = false;
 
-        // hi ethan, changed lines.forEach to for loop so ret can work properly
         for (let i = 0; i < lines.length; i++) {
             if (hasReturned) break; // stops code
 
@@ -372,6 +419,7 @@ export default function AssemblyEditor() {
                     }
                 }
 
+                //SUB LOGIC
                 if (parts[0] === "sub") {
                     const dest = parts[1];
                     const src = parts[2];
@@ -385,6 +433,7 @@ export default function AssemblyEditor() {
                     }
                 }
 
+                //INC LOGIC
                 if (parts[0] === "inc") {
                     const dest = parts[1];
                     if (regs[dest] !== undefined) {
@@ -392,6 +441,7 @@ export default function AssemblyEditor() {
                     }
                 }
 
+                //DEC LOGIC
                 if (parts[0] === "dec") {
                     const dest = parts[1];
                     if (regs[dest] !== undefined) {
@@ -414,8 +464,9 @@ export default function AssemblyEditor() {
     }
 
     // Helper to format numValues to hex
-    const formatHex = (value) => {
-        return "0x" + value.toString(16).toUpperCase();
+    const formatHex = (value, bits = 64) => {
+        const hexDigits = bits / 4;
+        return "0x" + value.toString(16).toUpperCase().padStart(hexDigits, "0");
     };
 
     // MAIN // 
@@ -436,10 +487,42 @@ export default function AssemblyEditor() {
             <div className="flex-grow bg-stone-950 text-emerald-400 p-4 font-mono text-xs rounded shadow overflow-auto whitespace-pre">
                 <h2 className="font-bold mb-2">Registers</h2>
 
-                    <p>RAX: {formatHex(registers.rax)}</p>
-                    <p>RBX: {formatHex(registers.rbx)}</p>
-                    <p>RCX: {formatHex(registers.rcx)}</p>
-                    <p>RDX: {formatHex(registers.rdx)}</p>
+                    {/* display all registers*/}
+                    <div className="mb-3">
+                        <p>RAX: {formatHex(readRegister("rax", registers), 64)}</p>
+                        <p>EAX: {formatHex(readRegister("eax", registers), 32)}</p>
+                        <p>AX: {formatHex(readRegister("ax", registers), 16)}</p>
+                        <p>AH: {formatHex(readRegister("ah", registers), 8)}</p>
+                        <p>AL: {formatHex(readRegister("al", registers), 8)}</p>
+                    </div>
+
+                    
+                    <div className="mb-3">
+                        <p>RBX: {formatHex(readRegister("rbx", registers), 64)}</p>
+                        <p>EBX: {formatHex(readRegister("ebx", registers), 32)}</p>
+                        <p>BX: {formatHex(readRegister("bx", registers), 16)}</p>
+                        <p>BH: {formatHex(readRegister("bh", registers), 8)}</p>
+                        <p>BL: {formatHex(readRegister("bl", registers), 8)}</p>
+                    </div>
+
+                    
+                    <div className="mb-3">
+                        <p>RCX: {formatHex(readRegister("rcx", registers), 64)}</p>
+                        <p>ECX: {formatHex(readRegister("ecx", registers), 32)}</p>
+                        <p>CX: {formatHex(readRegister("cx", registers), 16)}</p>
+                        <p>CH: {formatHex(readRegister("ch", registers), 8)}</p>
+                        <p>CL: {formatHex(readRegister("cl", registers), 8)}</p>
+                    </div>
+
+                    
+                    <div className="mb-3">
+                        <p>RDX: {formatHex(readRegister("rdx", registers), 64)}</p>
+                        <p>EDX: {formatHex(readRegister("edx", registers), 32)}</p>
+                        <p>DX: {formatHex(readRegister("dx", registers), 16)}</p>
+                        <p>DH: {formatHex(readRegister("dh", registers), 8)}</p>
+                        <p>DL: {formatHex(readRegister("dl", registers), 8)}</p>
+                    </div>
+
                 </div>
 
                 {/* output display: memory */}
