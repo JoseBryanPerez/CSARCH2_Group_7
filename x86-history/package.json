@@ -12,6 +12,7 @@
     "blockly": "^13.1.0",
     "next": "16.2.10",
     "react": "19.2.4",
+    "react-alternating-timeline": "^2.1.4",
     "react-dom": "19.2.4",
     "react-icons": "^5.7.0"
   },
@@ -21,6 +22,7 @@
     "@types/react": "19.2.17",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
-    "tailwindcss": "^4"
+    "tailwindcss": "^4",
+    "typescript": "7.0.2"
   }
 }
