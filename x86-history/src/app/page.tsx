@@ -41,7 +41,7 @@ export default function page() {
           assembly languages used today, computer scientists had to communicate directly with hardware using long strings of 0s and 1s. This website aims to give a brief overview on 
           the evolution of the x86-64 instruction set architecture (ISA). </h2>
       </div>
-      <div className="md:w-[45vw] md:h-[30hv] w-[40vw] h-[20vh] md:h-[50vw] bg-black">
+      <div className="md:w-[45vw] md:h-[50vh] w-[40vw] h-[20vh] bg-black">
           <img src="/images/Timeline1.png" className="h-full w-full flex items-center"/>
       </div>
     </div>
