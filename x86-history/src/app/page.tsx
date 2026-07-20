@@ -17,68 +17,177 @@ const items = [
     key: 'ENIAC',
     date: 1945,
     title: 'ENIAC',
-    children: (
-      <>
-        <img src="/images/Timeline1.png" alt="ENIAC" />
-        <p>In 1943 to 1945, one of the earliest electronic computers...</p>
-      </>
+    customMarker: (
+      <div
+        style={{
+          width: '60px',
+          height: ' 60px',
+          borderRadius: '50%',
+          background: '#111844',
+          color: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '1.5rem',
+          fontWeight: 'bold',
+        }}
+      >
+        1945
+      </div>
     ),
+   children: (
+    <Link href="/panels/ENIAC" className="block">
+      <img src="/images/Timeline1.png" alt="ENIAC" />
+      <p>In 1943 to 1945, one of the earliest electronic computers was in development called the ENIAC which is a large-scaled piece of technology that uses plugboards to send information.</p>
+    </Link>
+  ),
   },
   
   {
     key: 'UNIVAC',
     date: 1951,
     title: 'UNIVAC',
+    customMarker: (
+      <div
+        style={{
+          width: '60px',
+          height: ' 60px',
+          borderRadius: '50%',
+          background: '#111844',
+          color: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '1.5rem',
+          fontWeight: 'bold',
+        }}
+      >
+        1951
+      </div>
+    ),
     children: (
-      <>
+     <Link href="/panels/UNIVAC" className="block">
         <img src="/images/Timeline2.png" alt="UNIVAC" />
-        <p>Then in 1951, the UNIVAC became the first digital computer to be commercialized in the United States...</p>
-      </>
+        <p>"Then in 1951, the UNIVAC became the first digital computer to be commercialized in the United States with using magnetic tape to handle input and output."</p>
+      </Link>
     ),
   },
   {
     key: 'IBM701',
     date: 1952,
     title: 'IBM701',
+    customMarker: (
+      <div
+        style={{
+          width: '60px',
+          height: ' 60px',
+          borderRadius: '50%',
+          background: '#111844',
+          color: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '1.5rem',
+          fontWeight: 'bold',
+        }}
+      >
+        1952
+      </div>
+    ),
     children: (
-      <>
+      <Link href="/panels/IBM701" className="block" >
         <img src="/images/Timeline3.png" alt="IBM701" />
-        <p>Following after the UNIVAC, the IBM 701 became the first commercial scientific computer...</p>
-      </>
+        <p>Following after the UNIVAC, the IBM 701 became the first commercial scientific computer containing a maximum memory of 2048, 36-bit words and each instruction set containing 18 bits.</p>
+      </Link>
     ),
   },
   {
     key: 'CDC6600',
     date: 1964,
     title: 'CDC6600',
+    customMarker: (
+      <div
+        style={{
+          width: '60px',
+          height: ' 60px',
+          borderRadius: '50%',
+          background: '#111844',
+          color: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '1.5rem',
+          fontWeight: 'bold',
+        }}
+      >
+        1964
+      </div>
+    ),
+    marginBottom: '10px',
     children: (
-      <>
+      <Link href="/panels/CDC6600" className="block">
         <img src="/images/Timeline4.png" alt="CDC6600" />
-        <p>In 1964, the CDC 6600 developed by Control Data Corporation was considered the first supercomputer...</p>
-      </>
+        <p>In 1964, the CDC 6600 developed by Control Data Corporation was considered the first supercomputer and also a reduced instruction set computer (RISC) with an architecture of 65 instructions.</p>
+      </Link>
     ),
   },
   {
     key: 'CISC',
     date: 1978,
     title: 'CISC',
-    children: (
-      <>
-        <img src="/images/Timeline5.png" alt="CISC" />
-        <p>Through 1960s to 1970s, CISC was developed as software was becoming more complex...</p>
-      </>
+    customMarker: (
+      <div
+        style={{
+          width: '60px',
+          height: ' 60px',
+          borderRadius: '50%',
+          background: '#111844',
+          color: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '1.5rem',
+          fontWeight: 'bold',
+        }}
+      >
+        1978
+      </div>
     ),
+    children: (
+      <Link href="/panels/CISC" className="block">
+        <img src="/images/Timeline5.png" alt="CISC" />
+        <p>Through 1960s to 1970s, CISC was developed as software was becoming more complex which leads to the introduction of x86 ISA. This ISA is introduced through Intel 8086, one of the most notable CISCs in 1978.</p>
+      </Link>
+      ),
   },
   {
     key: 'NASM',
     date: 1990,
     title: 'NASM',
+    customMarker: (
+      <div
+        style={{
+          width: '60px',
+          height: ' 60px',
+          borderRadius: '50%',
+          background: '#111844',
+          color: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '1.5rem',
+          fontWeight: 'bold',
+        }}
+      >
+        1945
+      </div>
+    ),
     children: (
-      <>
+      <Link href="/panels/NASM" className="block">
         <img src="/images/Timeline6.png" alt="NASM" />
         <p>As x86 grew in popularity, many assemblers such as GAS, MASM, and etc. were created. One of the most popular assemblers is NASM which is known for being open-source and its ability to produce various object files.</p>
-      </>
-    ),
+      </Link>
+      ),
   },
 
 ];
@@ -136,7 +245,16 @@ export default function page() {
     {/*Panel Section, where the user can access more information about the timeline */}  
     <div className="w-full py-10 px-4 bg-white timeline-wrapper">
       <div className="max-w-5xl mx-auto">
-        <Timeline items={items} />
+        <Timeline
+        items={items}
+        minMarkerGap={90}
+        styleConfig={{
+          card: { background: '#F3ECE1' },
+          line: { color: '#111844' },
+          marker: { color: '#111844' },
+          item: { gap: '20px' },
+  }}
+/>
       </div>
     </div>
 
