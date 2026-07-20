@@ -3,7 +3,7 @@
 import React from 'react'
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import HugeCircle from '../../components/view_mainPage/HugeCircle';
+import TopPage from '../../components/view_mainPage/TopPage';
 import TimelineCircle from '../../components/view_mainPage/TimelineCircle';
 import Panel from '../../components/view_mainPage/Panel';
 import CreatorPanel from '../../components/view_mainPage/CreatorPanel';
@@ -20,10 +20,10 @@ export default function page() {
     {/*Navigation Section */}
     <Navigation />
 
-    {/*Huge Circle Section */}
-    <div id="start"><HugeCircle target="frame1"/></div>
+    {/*Top Page Section */}
+    <div id="start"><TopPage target="frame1"/></div>
 
-    {/*Helper secction that slowly changes the color of the transition block */}
+    {/*Helper section that slowly changes the color of the transition block */}
     <style>{'@keyframes lightenfromblack{0%{background-color:#000} 100%{background-color:#F3ECE1}} @keyframes lightenfromblue{0%{background-color:#111844} 100%{background-color:#F3ECE1}} @keyframes darkenfromblue{0%{background-color:#F3ECE1} 100%{background-color:#000}}'}</style>
     
     {/*A transition block that contains a short overview/info of the project*/}
@@ -33,10 +33,20 @@ export default function page() {
             animationRange:'entry 5% cover 35%'}}>
 
     {/*insert the text of the short overview in the insert text here */}
-   
-       <h2 className="text-[clamp(1.75rem,2vw+1rem,2.25rem)] text-left font-[Georgia] text-black">Introduction</h2>
-       <h2 className="text-[clamp(1.50rem,0.5vw+0.8rem,1.75rem)] text-justify font-[Perpetua] text-black">Assembly Language is a low-level language that allows programmers to communicate directly with computer hardware, offering more speed, space, and capability than most high-level languages. But before x86-64, ARM, MIPS and the more popular assembly languages used today, computer scientists had to communicate directly with hardware using long strings of 0s and 1s. This website aims to give a brief overview on the evolution of the x86-64 instruction set architecture (ISA). </h2>
-    
+    <div className="flex md:flex-row flex-col items-center justify-center md:justify-between md:gap-8 gap-20">
+      <div className="md:w-[45vw] md:p-10">
+        <h2 className="text-[clamp(1.75rem,2vw+1rem,2.25rem)] text-left font-[Georgia] text-black">Introduction</h2>
+        <h2 className="text-[clamp(1.50rem,0.5vw+0.8rem,1.75rem)] text-justify font-[Perpetua] text-black">Assembly Language is a low-level language that allows programmers to 
+          communicate directly with computer hardware, offering more speed, space, and capability than most high-level languages. But before x86-64, ARM, MIPS and the more popular 
+          assembly languages used today, computer scientists had to communicate directly with hardware using long strings of 0s and 1s. This website aims to give a brief overview on 
+          the evolution of the x86-64 instruction set architecture (ISA). </h2>
+      </div>
+      <div className="md:w-[45vw] md:h-[50vh] w-[40vw] h-[20vh] bg-black">
+          <img src="/images/Timeline1.png" className="h-full w-full flex items-center"/>
+      </div>
+    </div>
+     
+      
     </div>
 
 

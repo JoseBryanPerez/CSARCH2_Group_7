@@ -39,7 +39,7 @@ export default function Navigation(){
     return(
         <nav className="fixed z-50 top-0 left-0 right-0 bg-white shadow-md">
             <div className=" h-[7vh] w-full md:gap-10 flex items-center">
-                        <div className="h-full flex justify-start px-10">
+                        <div className="h-full flex justify-start px-10 ">
                            <Link href="/" className="w-[10vw] flex items-center justify-center hover:bg-[#E5DCD0] text-black font-[Baskerville] transition cursor-pointer ">CSARCH2</Link>
                         </div>
                         <div className="hidden md:flex w-full h-full text-[clamp(0.8rem,2.5vw,1rem)] flex justify-end">
@@ -47,9 +47,9 @@ export default function Navigation(){
                                 {/* Overview */}
                             <Link href="/additional" className="w-[10vw] flex items-center justify-center hover:bg-[#E5DCD0] text-black font-[Baskerville] transition cursor-pointer ">Overview</Link>
                             {/*Timeline Bar with drop down */}
-                                <div className="flex items-center group relative hover:bg-[#E5DCD0]"> {/*Add the font at this line to change the font style */}
-                                    <button className="w-[10vw] flex items-center justify-center font-[Baskerville] text-black transition cursor-pointer">Timeline</button>
-                                    <div className="absolute z-20 w-[10vw] top-full left-1/2 -translate-x-1/2 hidden group-hover:flex flex-col justify-center items-center bg-[#F3ECE1] shadow-lg rounded-md text-black text-black font-[Baskerville]">
+                                <div className="flex items-center group relative md:hover:bg-[#E5DCD0]"> {/*Add the font at this line to change the font style */}
+                                    <button onClick={()=> setTimelineOpen(!timelineOpen)} className="w-[10vw] flex items-center justify-center font-[Baskerville] text-black transition cursor-pointer">Timeline</button>
+                                    <div className={`absolute z-20 w-[10vw] top-full left-1/2 -translate-x-1/2 ${timelineOpen?"flex":"hidden"} group-hover:flex flex-col justify-center items-center bg-white shadow-lg rounded-md text-black text-black font-[Baskerville]`}>
                                             <a href="/panels/ENIAC" className="w-full  py-2 text-center text-stone-800 hover:bg-[#E5DCD0] hover:text-black rounded transition-colors ">ENIAC</a>
                                             <a href="/panels/UNIVAC" className="w-full  py-2 text-center text-stone-800 hover:bg-[#E5DCD0] hover:text-black rounded transition-colors ">UNIVAC</a>
                                             <a href="/panels/IBM701" className="w-full  py-2 text-center text-stone-800 hover:bg-[#E5DCD0] hover:text-black rounded transition-colors ">IBM 701</a>
