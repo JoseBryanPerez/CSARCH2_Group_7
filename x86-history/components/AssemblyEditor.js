@@ -16,6 +16,54 @@ export default function AssemblyEditor() {
     const [registers, setRegisters] = useState({rax: 0, rbx: 0, rcx: 0, rdx: 0}); // 4 registers
     const [memory, setMemory] = useState(Array(16).fill(0))                       // 16 memory loc
 
+    // mapping of registers based on bit sizes
+    const mapRegister = {
+        rax: { base: "rax", size: 64 },
+        eax: { base: "rax", size: 32 },
+        ax: { base: "rax", size: 16 },
+        al: { base: "rax", size: 8 },
+        ah: { base: "rax", size: 8 },
+
+        rbx: { base: "rbx", size: 64 },
+        ebx: { base: "rbx", size: 32 },
+        bx: { base: "rbx", size: 16 },
+        bl: { base: "rbx", size: 8 },
+        bh: { base: "rbx", size: 8 },
+
+        rcx: { base: "rcx", size: 64 },
+        ecx: { base: "rcx", size: 32 },
+        cx: { base: "rcx", size: 16 },
+        cl: { base: "rcx", size: 8 },
+        ch: { base: "rcx", size: 8 },
+
+        rdx: { base: "rdx", size: 64 },
+        edx: { base: "rdx", size: 32 },
+        dx: { base: "rdx", size: 16 },
+        dl: { base: "rdx", size: 8 },
+        dh: { base: "rdx", size: 8 },
+    };
+
+    // read register value based on bit size and name
+    function readRegister(name, regs) {
+        const registerInfo = mapRegister[name.toLowerCase()];
+
+        if (!registerInfo) {return undefined;}
+        const value = regs[registerInfo.base];
+
+        switch(registerInfo.size) {
+            case 64: return value
+            case 32: return value & 0xFFFFFFFF
+            case 16: return value & 0xFFFF
+            case 8: 
+                if (name.endsWith('h')) {
+                    return (value >> 8) & 0xFF;
+                }
+                return value & 0xFF;
+                
+            default: return undefined;
+        }
+    }
+
     useEffect(() => {
         if (!blocklyDiv.current) return;
 
@@ -36,9 +84,7 @@ export default function AssemblyEditor() {
                 this.appendEndRowInput()
                     .appendField("section")
                     .appendField(new Blockly.FieldDropdown([[".data", "DATA"], [".bss", "BSS"], [".text", "TEXT"]]), "SECTION");
-                this.appendStatementInput("CODE")
-                    .appendField();
-                this.appendDummyInput();
+                this.appendStatementInput("CODE").appendField();
                 this.setColour(300);
                 this.setPreviousStatement(true, null);
                 this.setNextStatement(true, null);
@@ -46,18 +92,48 @@ export default function AssemblyEditor() {
             }
         }
 
-        // MOV REG, REG block
+        // MOV REG, REG/CONST block
         Blockly.Blocks['mov_reg'] = {
             init: function() {
-                this.appendDummyInput()
+                this.appendDummyInput("INPUT_ROW")
                     .appendField("MOV")
                     .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "DEST")
                     .appendField(",")
-                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "SRC");
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"], ["Custom", "CUSTOM"]]), "SRC_DROP")
+                    .appendField(new Blockly.FieldLabel("0x"), "HEX_PREFIX")
+                    .appendField(new Blockly.FieldTextInput("0"), "HEX_VALUE"); 
+
                 this.setPreviousStatement(true, null);
                 this.setNextStatement(true, null);
                 this.setColour(210);
                 this.setTooltip("Move contents of source register into destination register.");
+
+                // Hide text fields for now
+                this.getField("HEX_PREFIX").setVisible(false);
+                this.getField("HEX_VALUE").setVisible(false);
+
+                this.setOnChange(function(event) {
+                // check for changes in MOV block
+                if (event.type === Blockly.Events.BLOCK_CHANGE && event.blockId === this.id) {
+                    // if change was made in drop down
+                    if (event.name === "SRC_DROP") {
+                        const dropdownField = this.getField("SRC_DROP");
+                        const prefixField = this.getField("HEX_PREFIX");
+                        const valueField = this.getField("HEX_VALUE");
+
+                        // if custom text
+                        if (event.newValue === "CUSTOM") {
+                            dropdownField.setVisible(false);
+                            prefixField.setVisible(true);
+                            valueField.setVisible(true);
+                        } else {
+                            dropdownField.setVisible(true);
+                            prefixField.setVisible(false);
+                            valueField.setVisible(false);
+                        }
+                        this.render();
+                    }
+                }}); 
             }
         };
 
@@ -68,24 +144,137 @@ export default function AssemblyEditor() {
                     .appendField("ADD")
                     .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "DEST")
                     .appendField(",")
-                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "SRC");
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"], ["Custom", "CUSTOM"]]), "SRC_DROP")
+                    .appendField(new Blockly.FieldLabel("0x"), "HEX_PREFIX")
+                    .appendField(new Blockly.FieldTextInput("0"), "HEX_VALUE"); 
                 this.setPreviousStatement(true, null);
                 this.setNextStatement(true, null);
                 this.setColour(150);
                 this.setTooltip("Add contents of source register to destination register.");
+
+                
+                // Hide text fields for now
+                this.getField("HEX_PREFIX").setVisible(false);
+                this.getField("HEX_VALUE").setVisible(false);
+
+                this.setOnChange(function(event) {
+                // check for changes in MOV block
+                if (event.type === Blockly.Events.BLOCK_CHANGE && event.blockId === this.id) {
+                    // if change was made in drop down
+                    if (event.name === "SRC_DROP") {
+                        const dropdownField = this.getField("SRC_DROP");
+                        const prefixField = this.getField("HEX_PREFIX");
+                        const valueField = this.getField("HEX_VALUE");
+
+                        // if custom text
+                        if (event.newValue === "CUSTOM") {
+                            dropdownField.setVisible(false);
+                            prefixField.setVisible(true);
+                            valueField.setVisible(true);
+                        } else {
+                            dropdownField.setVisible(true);
+                            prefixField.setVisible(false);
+                            valueField.setVisible(false);
+                        }
+                        this.render();
+                    }
+                }}); 
+            }
+        }
+
+        Blockly.Blocks['sub_reg'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("SUB")
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "DEST")
+                    .appendField(",")
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"], ["Custom", "CUSTOM"]]), "SRC_DROP")
+                    .appendField(new Blockly.FieldLabel("0x"), "HEX_PREFIX")
+                    .appendField(new Blockly.FieldTextInput("0"), "HEX_VALUE"); 
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(150);
+                this.setTooltip("Subtract contents of source register from destination register.");
+
+                
+                // Hide text fields for now
+                this.getField("HEX_PREFIX").setVisible(false);
+                this.getField("HEX_VALUE").setVisible(false);
+
+                this.setOnChange(function(event) {
+                // check for changes in MOV block
+                if (event.type === Blockly.Events.BLOCK_CHANGE && event.blockId === this.id) {
+                    // if change was made in drop down
+                    if (event.name === "SRC_DROP") {
+                        const dropdownField = this.getField("SRC_DROP");
+                        const prefixField = this.getField("HEX_PREFIX");
+                        const valueField = this.getField("HEX_VALUE");
+
+                        // if custom text
+                        if (event.newValue === "CUSTOM") {
+                            dropdownField.setVisible(false);
+                            prefixField.setVisible(true);
+                            valueField.setVisible(true);
+                        } else {
+                            dropdownField.setVisible(true);
+                            prefixField.setVisible(false);
+                            valueField.setVisible(false);
+                        }
+                        this.render();
+                    }
+                }}); 
+            }
+        }
+
+
+        Blockly.Blocks['inc_reg'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("INC")
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "DEST")
+                    .appendField(",")
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "SRC");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(150);
+                this.setTooltip("Increment the value in the destination register.");
+            }
+        }
+
+
+        Blockly.Blocks['dec_reg'] = {
+            init: function() {
+                this.appendDummyInput()
+                    .appendField("DEC")
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "DEST")
+                    .appendField(",")
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "SRC");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(150);
+                this.setTooltip("Decrement the value in the destination register.");
             }
         }
 
         // BLOCK GENERATORS //
         javascriptGenerator.forBlock['mov_reg'] = function(block) {
             const dest = block.getFieldValue('DEST').toLowerCase();
-            const src = block.getFieldValue('SRC').toLowerCase();
+            const srcType = block.getFieldValue('SRC_DROP');
+            
+            // get hex or register value
+            let src = "";
+            if (srcType === "CUSTOM") {
+                src = "0x" + block.getFieldValue("HEX_VALUE");
+            } else {
+                src = srcType.toLowerCase();
+            }
             return `    mov ${dest}, ${src}\n`;
         };
 
         javascriptGenerator.forBlock['section'] = function(block) {
             const section = block.getFieldValue('SECTION').toLowerCase();
-            return `    section ${section}`;
+            const nestedBlocks = javascriptGenerator.statementToCode(block, 'CODE');
+            return `section ${section}\n${nestedBlocks}`
         };
 
         javascriptGenerator.forBlock['ret'] = function(block) {
@@ -98,6 +287,32 @@ export default function AssemblyEditor() {
             return `    add ${dest}, ${src}\n`;
         };
 
+        javascriptGenerator.forBlock['sub_reg'] = function(block) {
+            const dest = block.getFieldValue('DEST').toLowerCase();
+            const src = block.getFieldValue('SRC').toLowerCase();
+            return `    sub ${dest}, ${src}\n`;
+        };
+
+        javascriptGenerator.forBlock['inc_reg'] = function(block) {
+            const dest = block.getFieldValue('DEST').toLowerCase();
+            return `    inc ${dest}\n`;
+        };
+
+        javascriptGenerator.forBlock['dec_reg'] = function(block) {
+            const dest = block.getFieldValue('DEST').toLowerCase();
+            return `    dec ${dest}\n`;
+        };
+
+        // COMBINING OF CODE BLOCKS IN THE WORKSPACE //
+        javascriptGenerator.scrub_ = function(block, code, thisBlockOnly) {
+            // gets next block
+            const nextBlock = block.nextConnection && block.nextConnection.targetBlock();
+            if (nextBlock && !thisBlockOnly) {
+                return code + javascriptGenerator.blockToCode(nextBlock); // concatenate code together
+            }
+            return code;
+        }
+
         // TOOLBOX DEFINITION //
         const toolBox = {
             // toolbox with no categories for now
@@ -105,24 +320,14 @@ export default function AssemblyEditor() {
 
             // the blocks that we have for now
             contents: [
-                {
-                    kind: 'block',
-                    type: 'mov_reg',
-                },
-                {
-                    kind: 'block',
-                    type: 'section',
-                },
-                {
-                    kind: 'block',
-                    type: 'ret',
-                },
-                {
-                    kind: 'block',
-                    type: 'add_reg'
-                }
+                { kind: 'block', type: 'mov_reg', },
+                { kind: 'block', type: 'section', },
+                { kind: 'block', type: 'ret', },
+                { kind: 'block', type: 'add_reg' },
+                { kind: 'block', type: 'sub_reg' },
+                { kind: 'block', type: 'inc_reg' },
+                { kind: 'block', type: 'dec_reg' },
             ]
-
         };
 
         // WORKSPACE SETUP //
@@ -151,24 +356,117 @@ export default function AssemblyEditor() {
         const lines = nasmCode.split("\n").map(line => line.trim()).filter(line => line.length > 0); //split lines into instructions
         console.log(lines);
 
-        //execute line by line
-        lines.forEach(line => {
+        // checks for sections and if program has returned
+        let isInTextSection = false;
+        let hasReturned = false;
+
+        for (let i = 0; i < lines.length; i++) {
+            if (hasReturned) break; // stops code
+
+            const line = lines[i];
             const parts = line.split(/[ ,]+/);
+            const opcode = parts[0].toLowerCase(); 
 
-        // MOV
-        // ===it works but nothing actually happens (moves 0 to 0), need to implement immediate value block===
-        if (parts[0] === "mov") {
+            // SEGMENT CHECKING //
+            if (opcode === "section") {
+                const sectionName = parts[1]?.toLowerCase();
+                if (sectionName === ".text" || sectionName === "text") {
+                    isInTextSection = true;
+                } else {
+                    isInTextSection = false; // false if .data or .bss
+                }
+                continue;
+            }
 
-            const dest = parts[1];
-            const src = parts[2];
+            // RETURN STATEMENT CHECKING //
+            if (opcode === "ret") {
+                if (isInTextSection) {
+                    hasReturned = true; // break code
+                }
+                continue;
+            }
 
-            //check if valid register
-            if (regs[src] !== undefined) {
-                regs[dest] = regs[src];
+            // MNEMONICS INSIDE .text
+            if (isInTextSection) {
+                // MOV LOGIC
+                if (parts[0] === "mov") {
+                    const dest = parts[1];
+                    const src = parts[2];
+                    //check if valid register
+                    if (regs[dest] !== undefined) {
+                        if (regs[src] !== undefined) {
+                            regs[dest] = regs[src];
+                        } else {
+                            const numValue = src.startsWith("0x") ? parseInt(src, 16) : parseInt(src, 10); // convert hex to real num
+                            if (!isNaN(numValue)) {
+                                regs[dest] = numValue;
+                            }
+                        }
+                    }
+                }
+
+                // ADD LOGIC
+                if (parts[0] === "add") {
+                    const dest = parts[1];
+                    const src = parts[2];
+                    if (regs[src] !== undefined) {
+                        regs[dest] = regs[dest] + regs[src];
+                    } else {
+                        const numericValue = src.startsWith("0x") ? parseInt(src, 16) : parseInt(src, 10);
+                        if (!isNaN(numericValue)) {
+                            regs[dest] = regs[dest] + numericValue;
+                        }
+                    }
+                }
+
+                //SUB LOGIC
+                if (parts[0] === "sub") {
+                    const dest = parts[1];
+                    const src = parts[2];
+                    if (regs[src] !== undefined) {
+                        regs[dest] = regs[dest] - regs[src];
+                    } else {
+                        const numericValue = src.startsWith("0x") ? parseInt(src, 16) : parseInt(src, 10);
+                        if (!isNaN(numericValue)) {
+                            regs[dest] = regs[dest] - numericValue;
+                        }
+                    }
+                }
+
+                //INC LOGIC
+                if (parts[0] === "inc") {
+                    const dest = parts[1];
+                    if (regs[dest] !== undefined) {
+                        regs[dest]++;
+                    }
+                }
+
+                //DEC LOGIC
+                if (parts[0] === "dec") {
+                    const dest = parts[1];
+                    if (regs[dest] !== undefined) {
+                        regs[dest]--;
+                    }
+                }
             }
         }
-    });
-        setRegisters(regs);
+
+        // error check
+        if (!isInTextSection && !hasReturned && lines.length > 0) {
+            alert("Missing .text segment or 'ret' command.");
+        } else {
+            setRegisters(regs);
+        }
+    };
+
+    const resetRegisters = () => {
+        setRegisters({ rax: 0, rbx: 0, rcx: 0, rdx: 0 });
+    }
+
+    // Helper to format numValues to hex
+    const formatHex = (value, bits = 64) => {
+        const hexDigits = bits / 4;
+        return "0x" + value.toString(16).toUpperCase().padStart(hexDigits, "0");
     };
 
     // MAIN // 
@@ -189,10 +487,42 @@ export default function AssemblyEditor() {
             <div className="flex-grow bg-stone-950 text-emerald-400 p-4 font-mono text-xs rounded shadow overflow-auto whitespace-pre">
                 <h2 className="font-bold mb-2">Registers</h2>
 
-                    <p>RAX: {registers.rax}</p>
-                    <p>RBX: {registers.rbx}</p>
-                    <p>RCX: {registers.rcx}</p>
-                    <p>RDX: {registers.rdx}</p>
+                    {/* display all registers*/}
+                    <div className="mb-3">
+                        <p>RAX: {formatHex(readRegister("rax", registers), 64)}</p>
+                        <p>EAX: {formatHex(readRegister("eax", registers), 32)}</p>
+                        <p>AX: {formatHex(readRegister("ax", registers), 16)}</p>
+                        <p>AH: {formatHex(readRegister("ah", registers), 8)}</p>
+                        <p>AL: {formatHex(readRegister("al", registers), 8)}</p>
+                    </div>
+
+                    
+                    <div className="mb-3">
+                        <p>RBX: {formatHex(readRegister("rbx", registers), 64)}</p>
+                        <p>EBX: {formatHex(readRegister("ebx", registers), 32)}</p>
+                        <p>BX: {formatHex(readRegister("bx", registers), 16)}</p>
+                        <p>BH: {formatHex(readRegister("bh", registers), 8)}</p>
+                        <p>BL: {formatHex(readRegister("bl", registers), 8)}</p>
+                    </div>
+
+                    
+                    <div className="mb-3">
+                        <p>RCX: {formatHex(readRegister("rcx", registers), 64)}</p>
+                        <p>ECX: {formatHex(readRegister("ecx", registers), 32)}</p>
+                        <p>CX: {formatHex(readRegister("cx", registers), 16)}</p>
+                        <p>CH: {formatHex(readRegister("ch", registers), 8)}</p>
+                        <p>CL: {formatHex(readRegister("cl", registers), 8)}</p>
+                    </div>
+
+                    
+                    <div className="mb-3">
+                        <p>RDX: {formatHex(readRegister("rdx", registers), 64)}</p>
+                        <p>EDX: {formatHex(readRegister("edx", registers), 32)}</p>
+                        <p>DX: {formatHex(readRegister("dx", registers), 16)}</p>
+                        <p>DH: {formatHex(readRegister("dh", registers), 8)}</p>
+                        <p>DL: {formatHex(readRegister("dl", registers), 8)}</p>
+                    </div>
+
                 </div>
 
                 {/* output display: memory */}
@@ -213,6 +543,13 @@ export default function AssemblyEditor() {
         <div className="flex gap-4 mt-4">
             <button onClick={runSimulation}
             className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Run
+            </button>
+        </div>
+
+        {/* reset button */}
+        <div>
+            <button onClick={resetRegisters} className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded gap-2 mt-4">
+                Reset
             </button>
         </div>
         

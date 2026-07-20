@@ -101,11 +101,75 @@ The style guide consists of elements such as the **text styles and color palette
 
 **Fig 5. Concept style of layouts and design for the exhibit**
 
+## Website Deployment Link
 
-References:
-Alheraki, A. (2025). The history of assembly language and CPU architectures. simplifycpp. https://simplifycpp.org/books/Assembly_Language_History.pdf  
-Evans, D. (n.d.). X86 assembly guide. Guide to x86 Assembly. https://www.cs.virginia.edu/~evans/cs216/guides/x86.html 
+https://csarch2-group-7.onrender.com/
 
-Introduction to x86 Assembly Programming. Adwaith’s Chronicles. (2018, August 12). https://www.agautham.io/rebeseries/2018/08/12/introduction-to-x86-assembly-programming.html 
+## Things Done: The development process
+
+During this time of development, the group focused on researching key machines and their ISAs and how the evolution of these computers led to the x86-64 NASM Assembly Language. The group implemented the initial layout of the website (which is subject to change), and the partial completion of the interactive drag and drop simulator of x86-64. The stack used for this project is Next.js with Tailwind CSS. For the interactive simulator, the group used the Blockly library (Blockly). As of now, the simulator contains 4 registers and 16 memory locations with simple instructions of MOV and ADD.
+
+**Challenges and Things Learned**
+
+In implementing the interactive drag and drop simulator, the main challenge was understanding the library documentation and learning how to integrate this in Next.js with Tailwind CSS. Fortunately, Blockly documentation provided comprehensive guides in building Blockly applications from scratch. From there, the group learned about react hooks in displaying Blockly code (which is vanilla javascript), virtual DOMS, and how to learn from library documentations online.
+
+**Things to be done on the final submission**
+
+The following are features to be improved or implemented for the full completion of the project: 
+Improvement of design and layout
+Full completion of drag and drop NASM simulator
+Implementation of INC and SUB block
+Implementation of variable declaration blocks
+Implementation of different registers (8-bit, 16-bit, 32-bit, 64-bit)
+Implementation of Error handling and input handling
+Fixing of bugs 
+
+**Disclosure on the use of AI/LLM**
+
+AI was used only as a reference tool for quick lookups of correct syntax and debugging in front-end development. It was not used to blindly generate entire sections of code, nor was it used to generate content for the website. Instead, it was used to check the clarity and the accuracy of the information found on the website.
+
+
+## References:
+Alheraki, A. (2025). The history of assembly language and CPU architectures. simplifycpp. https://simplifycpp.org/books/Assembly_Language_History.pdf
+
+CDC 6600 | Computational and Information Systems Lab. (n.d.). Www.Cisl.Ucar.Edu. Retrieved July 7, 2026, from https://www.cisl.ucar.edu/ncar-supercomputing-history/cdc6600
+
+Control Data Corporation. (1967, April). 6400/6500/6600 COMPUTER SYSTEMS COMPASS Reference Manual. Palo Alto; Control Data Corporation. https://www.bitsavers.org/pdf/cdc/cyber/lang/compass/60190900_COMPASS_Reference_Manual_196704.pdf
+
+Doug Jones. (n.d.). Doug Jones's computer program punched Card Collection. A Collection of Punched Cards for Computer Programs. https://landley.net/history/mirror/pre/punchedcards/collection/i-program.html
+
+Eckert and Mauchly Develop the ENIAC | EBSCO. (2023). EBSCO Information Services, Inc. | Www.Ebsco.Com. https://www.ebsco.com/research-starters/computer-science/eckert-and-mauchly-develop-eniac
+
+ENIAC (Electronic Numerical Integrator And Computer) - definition | Transfer Multisort Elektronik. (2025). TME. https://www.tme.eu/en/news/library-articles/glossary/page/68902/eniac-electronic-numerical-integrator-and-computer-definition/
+
+Evans, D. (n.d.). X86 assembly guide. Guide to x86 Assembly. https://www.cs.virginia.edu/~evans/cs216/guides/x86.html
+
+Freiberger, P. A., & Swaine, M. R. (2018). ENIAC. In Encyclopædia Britannica. https://www.britannica.com/technology/ENIAC
+
+Freiberger, P. A., & Swaine, M. R. (n.d.). UNIVAC | computer. Encyclopedia Britannica. Retrieved July 7, 2026, from https://www.britannica.com/technology/UNIVAC
+
+GeeksforGeeks. (2024, February 26). What Is the Full Form of UNIVAC? GeeksforGeeks. https://www.geeksforgeeks.org/computer-organization-architecture/what-is-the-full-form-of-univac/
+
+George Gray (1999). UNIVAC I Instruction Set - Folklore  https://ptacts.uspto.gov/ptacts/public-informations/petitions/1464240/download-documents?artifactId=Wc9j3Pypuj72GUOhGdt8ZP0WHA4pvFj-ndms5ZVMRLqWQvnHBEio1TQ 
+
+History.com Editors. (2010, July 20). UNIVAC, the first commercially produced digital computer in the U.S, is dedicated | June 14, 1951 | HISTORY. History. https://www.history.com/this-day-in-history/june-14/univac-computer-dedicated
+
+HP. (2022). Computer History: All About the ENIAC. Hp.Com; HP. https://www.hp.com/gb-en/shop/tech-takes/computer-history-all-about-the-eniac
+
+IBM. (n.d.). IBM 700 Series. Www.Ibm.Com. Retrieved July 7, 2026, from https://www.ibm.com/history/700
+
+Introduction to x86 Assembly Programming. Adwaith's Chronicles. (2018, August 12). https://www.agautham.io/rebeseries/2018/08/12/introduction-to-x86-assembly-programming.html
+
+Simon Tatham: About Me. (2018). Greenend.Org.Uk. https://www.chiark.greenend.org.uk/~sgtatham/me.html
+
+Timeline: A brief history of the x86 microprocessor. (n.d.). Computerworld. Retrieved July 7, 2026, from https://www.computerworld.com/article/1575191/timeline-a-brief-history-of-the-x86-microprocessor.html
+
+US Census Bureau. (2024, August 19). UNIVAC I. Census.Gov. https://www.census.gov/about/history/bureau-history/census-innovations/technology/univac-i.html
+
+x86assembly. (n.d.). Cs.Lmu.Edu. Retrieved July 7, 2026, from https://cs.lmu.edu/~ray/notes/x86assembly/
+
+Zinn, K., Finkel, J., & Hollland, D. (2002). Developmental History of main-line Intel CPUs. https://users.cs.jmu.edu/abzugcx/Public/Student-Produced-Term-Projects/Computer-Organization-2002-SPRING/Intel-CPUs-by-Kayla-Zinn-Jeff-Finkel-Daniel-Holland-2002-SPR.doc
+
+
 
 
