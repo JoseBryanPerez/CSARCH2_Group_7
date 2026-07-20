@@ -68,7 +68,7 @@ const items = [
     children: (
      <Link href="/panels/UNIVAC" className="block">
         <img src="/images/Timeline2.png" alt="UNIVAC" />
-        <p>"Then in 1951, the UNIVAC became the first digital computer to be commercialized in the United States with using magnetic tape to handle input and output."</p>
+        <p>Then in 1951, the UNIVAC became the first digital computer to be commercialized in the United States with using magnetic tape to handle input and output.</p>
       </Link>
     ),
   },
