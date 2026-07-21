@@ -3,6 +3,7 @@
 import React from 'react'
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import { Timeline } from 'react-alternating-timeline';
 import HugeCircle from '../../components/view_mainPage/HugeCircle';
 import TimelineCircle from '../../components/view_mainPage/TimelineCircle';
 import Panel from '../../components/view_mainPage/Panel';
@@ -11,10 +12,189 @@ import Navigation from '../../components/view_mainPage/Navigation';
 import AssemblyEditor from '../../components/AssemblyEditor';
 import Footer from '../../components/view_mainPage/Footer';
 
+const items = [
+  {
+    key: 'ENIAC',
+    date: 1945,
+    title: 'ENIAC',
+    customMarker: (
+      <div
+        style={{
+          width: '60px',
+          height: ' 60px',
+          borderRadius: '50%',
+          background: '#111844',
+          color: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '1.5rem',
+          fontWeight: 'bold',
+        }}
+      >
+        1945
+      </div>
+    ),
+   children: (
+    <Link href="/panels/ENIAC" className="block">
+      <img src="/images/Timeline1.png" alt="ENIAC" />
+      <p>In 1943 to 1945, one of the earliest electronic computers was in development called the ENIAC which is a large-scaled piece of technology that uses plugboards to send information.</p>
+    </Link>
+  ),
+  },
+  
+  {
+    key: 'UNIVAC',
+    date: 1951,
+    title: 'UNIVAC',
+    customMarker: (
+      <div
+        style={{
+          width: '60px',
+          height: ' 60px',
+          borderRadius: '50%',
+          background: '#111844',
+          color: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '1.5rem',
+          fontWeight: 'bold',
+        }}
+      >
+        1951
+      </div>
+    ),
+    children: (
+     <Link href="/panels/UNIVAC" className="block">
+        <img src="/images/Timeline2.png" alt="UNIVAC" />
+        <p>Then in 1951, the UNIVAC became the first digital computer to be commercialized in the United States with using magnetic tape to handle input and output.</p>
+      </Link>
+    ),
+  },
+  {
+    key: 'IBM701',
+    date: 1952,
+    title: 'IBM701',
+    customMarker: (
+      <div
+        style={{
+          width: '60px',
+          height: ' 60px',
+          borderRadius: '50%',
+          background: '#111844',
+          color: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '1.5rem',
+          fontWeight: 'bold',
+        }}
+      >
+        1952
+      </div>
+    ),
+    children: (
+      <Link href="/panels/IBM701" className="block" >
+        <img src="/images/Timeline3.png" alt="IBM701" />
+        <p>Following after the UNIVAC, the IBM 701 became the first commercial scientific computer containing a maximum memory of 2048, 36-bit words and each instruction set containing 18 bits.</p>
+      </Link>
+    ),
+  },
+  {
+    key: 'CDC6600',
+    date: 1964,
+    title: 'CDC6600',
+    customMarker: (
+      <div
+        style={{
+          width: '60px',
+          height: ' 60px',
+          borderRadius: '50%',
+          background: '#111844',
+          color: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '1.5rem',
+          fontWeight: 'bold',
+        }}
+      >
+        1964
+      </div>
+    ),
+    marginBottom: '10px',
+    children: (
+      <Link href="/panels/CDC6600" className="block">
+        <img src="/images/Timeline4.png" alt="CDC6600" />
+        <p>In 1964, the CDC 6600 developed by Control Data Corporation was considered the first supercomputer and also a reduced instruction set computer (RISC) with an architecture of 65 instructions.</p>
+      </Link>
+    ),
+  },
+  {
+    key: 'CISC',
+    date: 1978,
+    title: 'CISC',
+    customMarker: (
+      <div
+        style={{
+          width: '60px',
+          height: ' 60px',
+          borderRadius: '50%',
+          background: '#111844',
+          color: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '1.5rem',
+          fontWeight: 'bold',
+        }}
+      >
+        1978
+      </div>
+    ),
+    children: (
+      <Link href="/panels/CISC" className="block">
+        <img src="/images/Timeline5.png" alt="CISC" />
+        <p>Through 1960s to 1970s, CISC was developed as software was becoming more complex which leads to the introduction of x86 ISA. This ISA is introduced through Intel 8086, one of the most notable CISCs in 1978.</p>
+      </Link>
+      ),
+  },
+  {
+    key: 'NASM',
+    date: 1990,
+    title: 'NASM',
+    customMarker: (
+      <div
+        style={{
+          width: '60px',
+          height: ' 60px',
+          borderRadius: '50%',
+          background: '#111844',
+          color: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '1.5rem',
+          fontWeight: 'bold',
+        }}
+      >
+        1945
+      </div>
+    ),
+    children: (
+      <Link href="/panels/NASM" className="block">
+        <img src="/images/Timeline6.png" alt="NASM" />
+        <p>As x86 grew in popularity, many assemblers such as GAS, MASM, and etc. were created. One of the most popular assemblers is NASM which is known for being open-source and its ability to produce various object files.</p>
+      </Link>
+      ),
+  },
 
+];
 
 export default function page() {
- return (
+
+  return (
   <div className="w-full min-h-screen bg-[#F3ECE1]">
     
     {/*Navigation Section */}
@@ -38,7 +218,6 @@ export default function page() {
        <h2 className="text-[clamp(1.50rem,0.5vw+0.8rem,1.75rem)] text-justify font-[Perpetua] text-black">Assembly Language is a low-level language that allows programmers to communicate directly with computer hardware, offering more speed, space, and capability than most high-level languages. But before x86-64, ARM, MIPS and the more popular assembly languages used today, computer scientists had to communicate directly with hardware using long strings of 0s and 1s. This website aims to give a brief overview on the evolution of the x86-64 instruction set architecture (ISA). </h2>
     
     </div>
-
 
     {/*Timeline section */}
     <div className=" min-h-[60vh] h-auto py-12 w-full px-2 flex flex-col flex-wrap items-center justify-center bg-[#111844] rounded-lg shadow-md">
@@ -64,13 +243,19 @@ export default function page() {
     </div>
 
     {/*Panel Section, where the user can access more information about the timeline */}  
-    <div className="h-full w-full gap-15 py-20 px-4 flex flex-col items-center justify-center bg-[#F3ECE1]">
-      <div id="ENIAC"><Panel image="/images/Timeline1.png" headText="ENIAC (1945)" bodyText="In 1943 to 1945, one of the earliest electronic computers was in development called the ENIAC which is a large-scaled piece of technology that uses plugboards to send information." link="/panels/ENIAC"/></div>
-      <div id="UNIVAC"><Panel image="/images/Timeline2.png" headText="UNIVAC (1951)" bodyText="Then in 1951, the UNIVAC became the first digital computer to be commercialized in the United States with using magnetic tape to handle input and output." link="/panels/UNIVAC"/></div>
-      <div id="IBM701"><Panel image="/images/Timeline3.png" headText="IBM 701 (1952)" bodyText="Following after the UNIVAC, the IBM 701 became the first commercial scientific computer containing a maximum memory of 2048, 36-bit words and each instruction set containing 18 bits." link="/panels/IBM701"/></div>
-      <div id="CDC6600"><Panel image="/images/Timeline4.png" headText="CDC 6600 (1964)" bodyText="In 1964, the CDC 6600 developed by Control Data Corporation was considered the first supercomputer and also a reduced instruction set computer (RISC) with an architecture of 65 instructions." link="/panels/CDC6600"/></div>
-      <div id="CISC"><Panel image="/images/Timeline5.png" headText="CISC" bodyText="Through 1960s to 1970s, CISC was developed as software was becoming more complex which leads to the introduction of x86 ISA. This ISA is introduced through Intel 8086, one of the most notable CISCs in 1978."link="/panels/CISC"/></div>
-      <div id="NASM"><Panel image="/images/Timeline6.png" headText="x86-64 NASM AL" bodyText="As x86 grew in popularity, many assemblers such as GAS, MASM, and etc. were created. One of the most popular assemblers is NASM which is known for being open-source and its ability to produce various object files."link="/panels/NASM"/></div>
+    <div className="w-full py-10 px-4 bg-white timeline-wrapper">
+      <div className="max-w-5xl mx-auto">
+        <Timeline
+        items={items}
+        minMarkerGap={90}
+        styleConfig={{
+          card: { background: '#F3ECE1' },
+          line: { color: '#111844' },
+          marker: { color: '#111844' },
+          item: { gap: '20px' },
+  }}
+/>
+      </div>
     </div>
 
   {/*Just a transition block that holds no information */}
@@ -87,4 +272,5 @@ export default function page() {
     </div>
   </div>
  );
+ 
 }
