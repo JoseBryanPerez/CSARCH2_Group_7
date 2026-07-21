@@ -14,6 +14,10 @@
 4. Magbatoc Ethan Daniel Berosa
 5. Perez Jose Bryan Lee
 
+## Website Deployment Link
+
+https://csarch2-group-7.onrender.com/
+
 ---
 
 ## Topic Theme
@@ -101,14 +105,12 @@ The style guide consists of elements such as the **text styles and color palette
 
 **Fig 5. Concept style of layouts and design for the exhibit**
 
-## Website Deployment Link
 
-https://csarch2-group-7.onrender.com/
 
 ## Things Done: 
 For this case study, the group focused on researching key machines and their ISAs and how the evolution of these computers led to the x86-64 NASM Assembly Language. The group implemented the layout of the website, and the completion of the interactive drag and drop simulator of x86-64. The website is deployed through Github.io pages. The stack used for this project is Next.js with Tailwind CSS. For the interactive simulator, the group used the Blockly library (Blockly). The simulator contains different registers (8-bit, 16-bit, 32-bit, 64-bit) and simple instructions including ADD, SUB, INC, DEC, and MOV. These instructions can be operated from register to register and from constant to register. The simulator also implemented variable declaration blocks that can also function with the simple 5 instructions. Error handling and input handling were implemented for the simulator to be properly functional and debugged.      
 
-**Challenges and Things Learned**
+## Challenges and Things Learned:
 
 In implementing the interactive drag and drop simulator, the main challenge was understanding the library documentation and learning how to integrate this in Next.js with Tailwind CSS. Fortunately, Blockly documentation provided comprehensive guides in building Blockly applications from scratch. From there, the group learned about react hooks in displaying Blockly code (which is vanilla javascript), virtual DOMS, and how to learn from library documentations online. Another challenge we had was finding improvements for the layouts and design of the website. For this, we looked at some examples of professional website design online and take inspiration from them to implement elements. Overall, this case study has made us learn the history of ISAs and how it evolved to this modern era. With the simulator implementation, it also gives us an insight into how concepts of Assembly such as registers are integrated into elements of digital computers nowadays. Additionally, researching information of the past machines and their milestones in each period makes us appreciate the evolution of technology that shaped the world to the era that is now. 
 
