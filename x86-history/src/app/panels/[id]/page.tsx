@@ -18,28 +18,27 @@ export default async function panelTemplate({params}:Page){
             </div>
             <div className="min-h-screen w-full flex flex-col gap-10">
                 {/*Title and Content */}
-                <div className="h-auto w-full flex flex-col justify-center  xl:p-20 p-10 ">
-                <h1 className="text-black text-[clamp(1.75rem,2vw+1rem,2.25rem)] text-left font-[Georgia]">{content.title}</h1>
-                <h2 className="text-[clamp(1.50rem,0.5vw+0.8rem,1.75rem)] text-justify font-[Perpetua] text-black  break-words">{content.body1}
-                </h2>
+                <div className="h-auto w-full flex flex-col justify-center xl:p-20 px-10 py-10 ">
+                    <h1 className="px-5 text-black text-[clamp(1.75rem,2vw+1rem,2.25rem)] text-left font-[Georgia]">{content.title}</h1>
+                     <h2 className="p-5 text-[clamp(1.50rem,0.5vw+0.8rem,1.75rem)] text-justify font-[Perpetua] text-black break-words">{content.body1}</h2>
                 </div>
                 {/*Simulator Section */}
                 <div className="h-auto w-full bg-white">
-                    <div className="flex justify-between">
-                        <div className="w-[80vw] flex flex-col xl:p-20 p-10 gap-5 ">
+                    <div className="md:flex-row flex flex-col justify-between items-center">
+                        <div className="md:w-[80vw] w-[90vw] flex flex-col xl:p-20 py-10 px-10 gap-5 ">
                             <h3 className="text-black text-[clamp(1.75rem,2vw+1rem,2.25rem)] text-left font-[Georgia]"> SIMULATOR </h3>
                             <h3 className="text-[clamp(1.50rem,0.5vw+0.8rem,1.75rem)] text-justify font-[Perpetua] text-black break-words "> {content.simulatorBody} </h3>
                             <div className=" flex items-left">
                                 <Link href="/simulator">
-                                <button className=" py-1 px-2 bg-[#4B5694] hover:bg-[#7288AE] text-[1rem] text-white font-[Perpetua]">
+                                <button className=" py-1 px-2 bg-[#F3ECE1] hover:bg-[#7288AE] text-[1rem] text-black font-[Perpetua]">
                                     Try this out!
                                 </button>
                                 </Link>
                             </div>
                         </div>
-                        <div>
-                            <div className="bg-black h-full md:w-[40vw] w-[30vw]">
-                                <img src={content.image} className="h-full w-full flex items-center"/>
+                        <div className="flex items-center justify-center" >
+                            <div className=" md:w-[40vw] w-[90vw] px-10 py-5">
+                                <img src="../images/others/simulation.png"/>
                             </div>
                             
                         </div>
@@ -50,7 +49,7 @@ export default async function panelTemplate({params}:Page){
             </div>
 
              {/*Helper secction that slowly changes the color of the transition block */}
-    <style>{'@keyframes darkenfromblue{0%{background-color:#F3ECE1} 100%{background-color:#000}}'}</style>
+    <style>{'@keyframes darkenfromblue{0%{background-color:#F3ECE1} 100%{background-color:#111844}}'}</style>
             <div className="md:h-[50vh] h-[35vh] w-full flex flex-col items-center justify-center bg-[#F3ECE1] " 
             style={{animation: 'darkenfromblue linear both',
                     animationTimeline:'view()', 
