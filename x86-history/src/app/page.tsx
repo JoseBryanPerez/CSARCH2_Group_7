@@ -4,7 +4,7 @@ import React from 'react'
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { Timeline } from 'react-alternating-timeline';
-import HugeCircle from '../../components/view_mainPage/HugeCircle';
+import TopPage from '../../components/view_mainPage/TopPage';
 import TimelineCircle from '../../components/view_mainPage/TimelineCircle';
 import Panel from '../../components/view_mainPage/Panel';
 import CreatorPanel from '../../components/view_mainPage/CreatorPanel';
@@ -201,7 +201,7 @@ export default function page() {
     <Navigation />
 
     {/*Huge Circle Section */}
-    <div id="start"><HugeCircle target="frame1"/></div>
+    <div id="start"><TopPage target="frame1"/></div>
 
     {/*Helper secction that slowly changes the color of the transition block */}
     <style>{'@keyframes lightenfromblack{0%{background-color:#000} 100%{background-color:#F3ECE1}} @keyframes lightenfromblue{0%{background-color:#111844} 100%{background-color:#F3ECE1}} @keyframes darkenfromblue{0%{background-color:#F3ECE1} 100%{background-color:#000}}'}</style>
