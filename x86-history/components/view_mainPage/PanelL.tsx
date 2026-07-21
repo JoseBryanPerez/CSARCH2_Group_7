@@ -15,7 +15,7 @@ export default function Panel({image,headText,bodyText,link}:{image?:string,head
         <img src={image} alt={image}  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}/> 
       </Link>
       <div className="flex-1 ">
-          <p className="text-justify break-words text-sm md:text-base" >{bodyText}</p>
+          <p className="md:text-justify text-center break-words text-sm md:text-base" >{bodyText}</p>
       </div>
       <Link href={link||"/"}  className="hidden md:block  w-[10vw] h-[10vw] overflow-hidden shadow-sm shrink-0 rounded-full">
            <img src={image} alt={image}  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", }}/>

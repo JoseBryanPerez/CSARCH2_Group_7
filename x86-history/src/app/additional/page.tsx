@@ -29,7 +29,7 @@ export default function overview(){
             </div>
             </div>
               {/*Helper secction that slowly changes the color of the transition block */}
-            <style>{'@keyframes darkenfromblue{0%{background-color:#F3ECE1} 100%{background-color:#000}}'}</style>
+            <style>{'@keyframes darkenfromblue{0%{background-color:#F3ECE1} 100%{background-color:#111844 }}'}</style>
             <div className="md:h-[50vh] h-[35vh] w-full flex flex-col items-center justify-center bg-[#F3ECE1] " 
             style={{animation: 'darkenfromblue linear both',
                     animationTimeline:'view()', 
