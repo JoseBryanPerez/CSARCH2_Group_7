@@ -204,6 +204,21 @@ export default function AssemblyEditor() {
         const workspace = Blockly.inject(blocklyDiv.current, {
             toolbox: toolBox,
             trashcan: true,
+
+            // for mobile
+            move: {
+                scrollbars: true,
+                drag: true,
+                wheel: true
+            },
+            zoom: { // touch friendly
+                controls: true,
+                wheel: false,
+                startScale: 0.9,
+                maxScale: 3,
+                minScale: 0.3,
+                scaleSpeed: 1.2
+            }
         });
 
         // HANDLE CHANGES //
@@ -214,7 +229,12 @@ export default function AssemblyEditor() {
         };
         workspace.addChangeListener(updateCode);
 
+        // responsive workspace
+        const handleResize = () => Blockly.svgResize(workspace);
+        window.addEventListener('resize', handleResize);
+
         return () => {
+            window.removeEventListener('resize', handleResize);
             workspace.dispose();
         };
     }, []);
@@ -456,20 +476,21 @@ export default function AssemblyEditor() {
     // MAIN // 
     return (
         //Hi gabe, just added the back button here
-    <div className="flex flex-col items-left justify-center min-h-screen bg-stone-200 p-4 ">
-        <div className="flex h-[600px] w-full gap-4 bg-stone-100 p-4 rounded-xl border border-stone-200">
+    <div className="flex flex-col min-h-screen bg-stone-200 p-2 sm:p-4">
+        <div className="flex flex-col lg:flex-row h-auto lg:h-[650px] w-full gap-4 bg-stone-100 p-3 sm:p-4 rounded-xl border border-stone-200">
             {/* workspace! */}
-            <div ref={blocklyDiv} className="w-2/3 h-full rounded border bg-white shadow-inner" />
+            <div 
+                ref={blocklyDiv} 
+                className="w-full lg:w-2/3 h-[400px] lg:h-full rounded border bg-white shadow-inner min-h-[350px]" 
+            />
             
             {/* output display */}
-                <div className="w-1/3 h-full flex flex-col">
-                    <pre className="flex-grow bg-stone-950 text-emerald-400 p-4 font-mono text-xs rounded shadow overflow-auto whitespace-pre">
-                <h2 className="font-bold mb-2">Output Display</h2>
-                    </pre>
+            <div className="w-full lg:w-1/3 h-[450px] lg:h-full flex flex-col gap-3 overflow-y-auto">
+                <h2 className="font-bold text-black mb-1">Output Display</h2>
 
                 {/* output display: registers */}
-            <div className="flex-grow bg-stone-950 text-emerald-400 p-4 font-mono text-xs rounded shadow overflow-auto whitespace-pre">
-                <h2 className="font-bold mb-2">Registers</h2>
+                <div className="flex-grow bg-stone-950 text-emerald-400 p-4 font-mono text-xs rounded shadow overflow-auto whitespace-pre">
+                    <h2 className="font-bold mb-2">Registers</h2>
 
                     {/* display all registers*/}
                     <div className="mb-3">
@@ -498,7 +519,6 @@ export default function AssemblyEditor() {
                         <p>CL: {formatHex(readRegister("cl", registers), 8)}</p>
                     </div>
 
-                    
                     <div className="mb-3">
                         <p>RDX: {formatHex(readRegister("rdx", registers), 64)}</p>
                         <p>EDX: {formatHex(readRegister("edx", registers), 32)}</p>
@@ -506,38 +526,35 @@ export default function AssemblyEditor() {
                         <p>DH: {formatHex(readRegister("dh", registers), 8)}</p>
                         <p>DL: {formatHex(readRegister("dl", registers), 8)}</p>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
 
-        <div className="inline-flex">
+        <div className="flex flex-wrap gap-3 mt-4">
             {/* run simulation button */}
-            <div className="flex gap-4 mt-4 mr-4">
+            <div className="flex gap-4 mt-4">
                 <button onClick={runSimulation}
                 className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Run
                 </button>
             </div>
 
             {/* reset button */}
-            <div className="flex gap-4 mt-4 mr-4">
-                <button onClick={resetRegisters} 
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Reset
+            <div>
+                <button onClick={resetRegisters} className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded gap-2 mt-4">
+                    Reset
                 </button>
             </div>
             
             {/* back button */}
-            <div className="flex gap-4 mt-4 mr-4">
+            <div>
                 <Link href="/">
-                    <button 
-                    className="bg-yellow-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Back
+                    <button className="bg-yellow-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded gap-2 mt-4">
+                        Back
                     </button>
                 </Link>
             </div>
         </div>
-
-        
     </div>
-    
   );
 }
