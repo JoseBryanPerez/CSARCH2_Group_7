@@ -26,6 +26,6 @@
     "eslint-config-next": "16.2.10",
     "patch-package": "^8.0.1",
     "tailwindcss": "^4",
-    "typescript": "^7.0.2"
+    "typescript": "^5.9.3"
   }
 }
