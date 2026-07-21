@@ -1,0 +1,41 @@
+diff --git a/node_modules/react-alternating-timeline/react-alternating-timeline.es.js b/node_modules/react-alternating-timeline/react-alternating-timeline.es.js
+index da99f49..bb32178 100644
+--- a/node_modules/react-alternating-timeline/react-alternating-timeline.es.js
++++ b/node_modules/react-alternating-timeline/react-alternating-timeline.es.js
+@@ -81,19 +81,23 @@ function J(r) {
+     const i = new ResizeObserver(I);
+     return d.current && i.observe(d.current), h.current && i.observe(h.current), () => i.disconnect();
+   }, [n]), /* @__PURE__ */ v("div", { className: ["timeline", `timeline--${n}`, m].join(" "), ref: _, children: [
+-    /* @__PURE__ */ a("div", { ref: d, className: "timeline__items-container timeline__items-container--left", children: c.map((i) => /* @__PURE__ */ a(
+-      B,
+-      {
+-        customMarker: o,
+-        customPointer: f,
+-        formatDate: k,
+-        ...i,
+-        ref: (s) => {
+-          const l = j();
+-          s ? l.set(i.key, s) : l.delete(i.key);
+-        }
+-      }
+-    )) }),
++    /* @__PURE__ */ a("div", { ref: d, className: "timeline__items-container timeline__items-container--left", children: c.map((i) => {
++      const { key: __itemKey, ...__rest } = i;
++      return /* @__PURE__ */ a(
++        B,
++        {
++          customMarker: o,
++          customPointer: f,
++          formatDate: k,
++          ...__rest,
++          ref: (s) => {
++            const l = j();
++            s ? l.set(i.key, s) : l.delete(i.key);
++          }
++        },
++        __itemKey
++      );
++    }) }),
+     /* @__PURE__ */ v("div", { className: "timeline-line", children: [
+       /* @__PURE__ */ a("div", { className: "timeline-line__end timeline-line__end--opening", children: E(t) ? t : t == null ? void 0 : t.opening }),
+       /* @__PURE__ */ a("div", { className: "timeline-line__end timeline-line__end--closing", children: E(t) ? t : t == null ? void 0 : t.closing })
