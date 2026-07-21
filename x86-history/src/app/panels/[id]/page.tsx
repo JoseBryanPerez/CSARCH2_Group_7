@@ -31,15 +31,15 @@ export default async function panelTemplate({params}:Page){
                             <h3 className="text-[clamp(1.50rem,0.5vw+0.8rem,1.75rem)] text-justify font-[Perpetua] text-black break-words "> {content.simulatorBody} </h3>
                             <div className=" flex items-left">
                                 <Link href="/simulator">
-                                <button className=" py-1 px-2 bg-[#4B5694] hover:bg-[#7288AE] text-[1rem] text-white font-[Perpetua]">
+                                <button className=" py-1 px-2 bg-[#F3ECE1] hover:bg-[#7288AE] text-[1rem] text-black font-[Perpetua]">
                                     Try this out!
                                 </button>
                                 </Link>
                             </div>
                         </div>
-                        <div>
-                            <div className="bg-black h-full md:w-[40vw] w-[30vw]">
-                                <img src={content.image} className="h-full w-full flex items-center"/>
+                        <div className="flex items-center justify-center" >
+                            <div className=" md:w-[40vw] w-[30vw] ">
+                                <img src="../images/others/simulation.png"/>
                             </div>
                             
                         </div>

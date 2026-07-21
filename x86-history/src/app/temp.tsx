@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import TopPage from '../../components/view_mainPage/TopPage';
 import TimelineCircle from '../../components/view_mainPage/TimelineCircle';
-import Panel from '../../components/view_mainPage/Panel';
+import PanelL from '../../components/view_mainPage/PanelL';
 import CreatorPanel from '../../components/view_mainPage/CreatorPanel';
 import Navigation from '../../components/view_mainPage/Navigation';
 import AssemblyEditor from '../../components/AssemblyEditor';
@@ -75,12 +75,12 @@ export default function page() {
 
     {/*Panel Section, where the user can access more information about the timeline */}  
     <div className="h-full w-full gap-15 py-20 px-4 flex flex-col items-center justify-center bg-[#F3ECE1]">
-      <div id="ENIAC"><Panel image="/images/Timeline1.png" headText="ENIAC (1945)" bodyText="In 1943 to 1945, one of the earliest electronic computers was in development called the ENIAC which is a large-scaled piece of technology that uses plugboards to send information." link="/panels/ENIAC"/></div>
-      <div id="UNIVAC"><Panel image="/images/Timeline2.png" headText="UNIVAC (1951)" bodyText="Then in 1951, the UNIVAC became the first digital computer to be commercialized in the United States with using magnetic tape to handle input and output." link="/panels/UNIVAC"/></div>
-      <div id="IBM701"><Panel image="/images/Timeline3.png" headText="IBM 701 (1952)" bodyText="Following after the UNIVAC, the IBM 701 became the first commercial scientific computer containing a maximum memory of 2048, 36-bit words and each instruction set containing 18 bits." link="/panels/IBM701"/></div>
-      <div id="CDC6600"><Panel image="/images/Timeline4.png" headText="CDC 6600 (1964)" bodyText="In 1964, the CDC 6600 developed by Control Data Corporation was considered the first supercomputer and also a reduced instruction set computer (RISC) with an architecture of 65 instructions." link="/panels/CDC6600"/></div>
-      <div id="CISC"><Panel image="/images/Timeline5.png" headText="CISC" bodyText="Through 1960s to 1970s, CISC was developed as software was becoming more complex which leads to the introduction of x86 ISA. This ISA is introduced through Intel 8086, one of the most notable CISCs in 1978."link="/panels/CISC"/></div>
-      <div id="NASM"><Panel image="/images/Timeline6.png" headText="x86-64 NASM AL" bodyText="As x86 grew in popularity, many assemblers such as GAS, MASM, and etc. were created. One of the most popular assemblers is NASM which is known for being open-source and its ability to produce various object files."link="/panels/NASM"/></div>
+      <div id="ENIAC"><PanelL image="/images/Timeline1.png" headText="ENIAC (1945)" bodyText="In 1943 to 1945, one of the earliest electronic computers was in development called the ENIAC which is a large-scaled piece of technology that uses plugboards to send information." link="/panels/ENIAC"/></div>
+      <div id="UNIVAC"><PanelL image="/images/Timeline2.png" headText="UNIVAC (1951)" bodyText="Then in 1951, the UNIVAC became the first digital computer to be commercialized in the United States with using magnetic tape to handle input and output." link="/panels/UNIVAC"/></div>
+      <div id="IBM701"><PanelL image="/images/Timeline3.png" headText="IBM 701 (1952)" bodyText="Following after the UNIVAC, the IBM 701 became the first commercial scientific computer containing a maximum memory of 2048, 36-bit words and each instruction set containing 18 bits." link="/panels/IBM701"/></div>
+      <div id="CDC6600"><PanelL image="/images/Timeline4.png" headText="CDC 6600 (1964)" bodyText="In 1964, the CDC 6600 developed by Control Data Corporation was considered the first supercomputer and also a reduced instruction set computer (RISC) with an architecture of 65 instructions." link="/panels/CDC6600"/></div>
+      <div id="CISC"><PanelL image="/images/Timeline5.png" headText="CISC" bodyText="Through 1960s to 1970s, CISC was developed as software was becoming more complex which leads to the introduction of x86 ISA. This ISA is introduced through Intel 8086, one of the most notable CISCs in 1978."link="/panels/CISC"/></div>
+      <div id="NASM"><PanelL image="/images/Timeline6.png" headText="x86-64 NASM AL" bodyText="As x86 grew in popularity, many assemblers such as GAS, MASM, and etc. were created. One of the most popular assemblers is NASM which is known for being open-source and its ability to produce various object files."link="/panels/NASM"/></div>
     </div>
 
   {/*Just a transition block that holds no information */}
