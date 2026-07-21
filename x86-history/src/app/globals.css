@@ -24,3 +24,11 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.timeline-wrapper h3,
+.timeline-wrapper time,
+.timeline-wrapper p,
+.timeline-wrapper span {
+  color: #111844 !important;
+  opacity: 1 !important;
+}
