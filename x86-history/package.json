@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "postinstall": "patch-package" 
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "blockly": "^13.1.0",
