@@ -13,8 +13,8 @@ export default function AssemblyEditor() {
     const blocklyDiv = useRef(null);
     const [nasmCode, setNasmCode] = useState("");
 
-    const [registers, setRegisters] = useState({rax: 0, rbx: 0, rcx: 0, rdx: 0}); // 4 registers
-    const [memory, setMemory] = useState(Array(16).fill(0))                       // 16 memory loc
+    // NOTE: hi ethan, made these in bigInts - putting FFFFFFFF caused overflows
+    const [registers, setRegisters] = useState({rax: 0n, rbx: 0n, rcx: 0n, rdx: 0n}); // 4 registers
 
     // mapping of registers based on bit sizes
     const mapRegister = {
@@ -52,13 +52,13 @@ export default function AssemblyEditor() {
 
         switch(registerInfo.size) {
             case 64: return value
-            case 32: return value & 0xFFFFFFFF
-            case 16: return value & 0xFFFF
+            case 32: return value & 0xFFFFFFFFn
+            case 16: return value & 0xFFFFn
             case 8: 
                 if (name.endsWith('h')) {
-                    return (value >> 8) & 0xFF;
+                    return (value >> 8n) & 0xFFn;
                 }
-                return value & 0xFF;
+                return value & 0xFFn;
                 
             default: return undefined;
         }
@@ -83,7 +83,7 @@ export default function AssemblyEditor() {
             init: function() {
                 this.appendEndRowInput()
                     .appendField("section")
-                    .appendField(new Blockly.FieldDropdown([[".data", "DATA"], [".bss", "BSS"], [".text", "TEXT"]]), "SECTION");
+                    .appendField(new Blockly.FieldDropdown([[".text", "TEXT"]]), "SECTION");
                 this.appendStatementInput("CODE").appendField();
                 this.setColour(300);
                 this.setPreviousStatement(true, null);
@@ -95,145 +95,29 @@ export default function AssemblyEditor() {
         // MOV REG, REG/CONST block
         Blockly.Blocks['mov_reg'] = {
             init: function() {
-                this.appendDummyInput("INPUT_ROW")
-                    .appendField("MOV")
-                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "DEST")
-                    .appendField(",")
-                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"], ["Custom", "CUSTOM"]]), "SRC_DROP")
-                    .appendField(new Blockly.FieldLabel("0x"), "HEX_PREFIX")
-                    .appendField(new Blockly.FieldTextInput("0"), "HEX_VALUE"); 
-
-                this.setPreviousStatement(true, null);
-                this.setNextStatement(true, null);
-                this.setColour(210);
-                this.setTooltip("Move contents of source register into destination register.");
-
-                // Hide text fields for now
-                this.getField("HEX_PREFIX").setVisible(false);
-                this.getField("HEX_VALUE").setVisible(false);
-
-                this.setOnChange(function(event) {
-                // check for changes in MOV block
-                if (event.type === Blockly.Events.BLOCK_CHANGE && event.blockId === this.id) {
-                    // if change was made in drop down
-                    if (event.name === "SRC_DROP") {
-                        const dropdownField = this.getField("SRC_DROP");
-                        const prefixField = this.getField("HEX_PREFIX");
-                        const valueField = this.getField("HEX_VALUE");
-
-                        // if custom text
-                        if (event.newValue === "CUSTOM") {
-                            dropdownField.setVisible(false);
-                            prefixField.setVisible(true);
-                            valueField.setVisible(true);
-                        } else {
-                            dropdownField.setVisible(true);
-                            prefixField.setVisible(false);
-                            valueField.setVisible(false);
-                        }
-                        this.render();
-                    }
-                }}); 
+                initArithmeticBlock(this, "MOV", "Move contents of source register to destination register.")
             }
         };
 
-        // ADD REG, REG Block
+        // ADD REG, REG/CONST Block
         Blockly.Blocks['add_reg'] = {
             init: function() {
-                this.appendDummyInput()
-                    .appendField("ADD")
-                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "DEST")
-                    .appendField(",")
-                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"], ["Custom", "CUSTOM"]]), "SRC_DROP")
-                    .appendField(new Blockly.FieldLabel("0x"), "HEX_PREFIX")
-                    .appendField(new Blockly.FieldTextInput("0"), "HEX_VALUE"); 
-                this.setPreviousStatement(true, null);
-                this.setNextStatement(true, null);
-                this.setColour(150);
-                this.setTooltip("Add contents of source register to destination register.");
-
-                
-                // Hide text fields for now
-                this.getField("HEX_PREFIX").setVisible(false);
-                this.getField("HEX_VALUE").setVisible(false);
-
-                this.setOnChange(function(event) {
-                // check for changes in MOV block
-                if (event.type === Blockly.Events.BLOCK_CHANGE && event.blockId === this.id) {
-                    // if change was made in drop down
-                    if (event.name === "SRC_DROP") {
-                        const dropdownField = this.getField("SRC_DROP");
-                        const prefixField = this.getField("HEX_PREFIX");
-                        const valueField = this.getField("HEX_VALUE");
-
-                        // if custom text
-                        if (event.newValue === "CUSTOM") {
-                            dropdownField.setVisible(false);
-                            prefixField.setVisible(true);
-                            valueField.setVisible(true);
-                        } else {
-                            dropdownField.setVisible(true);
-                            prefixField.setVisible(false);
-                            valueField.setVisible(false);
-                        }
-                        this.render();
-                    }
-                }}); 
+                initArithmeticBlock(this, "ADD", "Add contents of source register to destination register.") 
             }
         }
 
+        // SUB REG, REG/CONST Block
         Blockly.Blocks['sub_reg'] = {
             init: function() {
-                this.appendDummyInput()
-                    .appendField("SUB")
-                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "DEST")
-                    .appendField(",")
-                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"], ["Custom", "CUSTOM"]]), "SRC_DROP")
-                    .appendField(new Blockly.FieldLabel("0x"), "HEX_PREFIX")
-                    .appendField(new Blockly.FieldTextInput("0"), "HEX_VALUE"); 
-                this.setPreviousStatement(true, null);
-                this.setNextStatement(true, null);
-                this.setColour(150);
-                this.setTooltip("Subtract contents of source register from destination register.");
-
-                
-                // Hide text fields for now
-                this.getField("HEX_PREFIX").setVisible(false);
-                this.getField("HEX_VALUE").setVisible(false);
-
-                this.setOnChange(function(event) {
-                // check for changes in MOV block
-                if (event.type === Blockly.Events.BLOCK_CHANGE && event.blockId === this.id) {
-                    // if change was made in drop down
-                    if (event.name === "SRC_DROP") {
-                        const dropdownField = this.getField("SRC_DROP");
-                        const prefixField = this.getField("HEX_PREFIX");
-                        const valueField = this.getField("HEX_VALUE");
-
-                        // if custom text
-                        if (event.newValue === "CUSTOM") {
-                            dropdownField.setVisible(false);
-                            prefixField.setVisible(true);
-                            valueField.setVisible(true);
-                        } else {
-                            dropdownField.setVisible(true);
-                            prefixField.setVisible(false);
-                            valueField.setVisible(false);
-                        }
-                        this.render();
-                    }
-                }}); 
+                initArithmeticBlock(this, "SUB", "Subtract contents of source register from destination register.")
             }
         }
-
 
         Blockly.Blocks['inc_reg'] = {
             init: function() {
                 this.appendDummyInput()
                     .appendField("INC")
                     .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "DEST")
-                    .appendField(",")
-                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "SRC");
                 this.setPreviousStatement(true, null);
                 this.setNextStatement(true, null);
                 this.setColour(150);
@@ -241,14 +125,11 @@ export default function AssemblyEditor() {
             }
         }
 
-
         Blockly.Blocks['dec_reg'] = {
             init: function() {
                 this.appendDummyInput()
                     .appendField("DEC")
                     .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "DEST")
-                    .appendField(",")
-                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "SRC");
                 this.setPreviousStatement(true, null);
                 this.setNextStatement(true, null);
                 this.setColour(150);
@@ -258,16 +139,7 @@ export default function AssemblyEditor() {
 
         // BLOCK GENERATORS //
         javascriptGenerator.forBlock['mov_reg'] = function(block) {
-            const dest = block.getFieldValue('DEST').toLowerCase();
-            const srcType = block.getFieldValue('SRC_DROP');
-            
-            // get hex or register value
-            let src = "";
-            if (srcType === "CUSTOM") {
-                src = "0x" + block.getFieldValue("HEX_VALUE");
-            } else {
-                src = srcType.toLowerCase();
-            }
+            let [dest, src] = arithmeticGenerator(block);
             return `    mov ${dest}, ${src}\n`;
         };
 
@@ -282,14 +154,12 @@ export default function AssemblyEditor() {
         };
 
         javascriptGenerator.forBlock['add_reg'] = function(block) {
-            const dest = block.getFieldValue('DEST').toLowerCase();
-            const src = block.getFieldValue('SRC').toLowerCase();
+            let [dest, src] = arithmeticGenerator(block);
             return `    add ${dest}, ${src}\n`;
         };
 
         javascriptGenerator.forBlock['sub_reg'] = function(block) {
-            const dest = block.getFieldValue('DEST').toLowerCase();
-            const src = block.getFieldValue('SRC').toLowerCase();
+            let [dest, src] = arithmeticGenerator(block);
             return `    sub ${dest}, ${src}\n`;
         };
 
@@ -373,15 +243,7 @@ export default function AssemblyEditor() {
                 if (sectionName === ".text" || sectionName === "text") {
                     isInTextSection = true;
                 } else {
-                    isInTextSection = false; // false if .data or .bss
-                }
-                continue;
-            }
-
-            // RETURN STATEMENT CHECKING //
-            if (opcode === "ret") {
-                if (isInTextSection) {
-                    hasReturned = true; // break code
+                    isInTextSection = false; 
                 }
                 continue;
             }
@@ -397,9 +259,10 @@ export default function AssemblyEditor() {
                         if (regs[src] !== undefined) {
                             regs[dest] = regs[src];
                         } else {
-                            const numValue = src.startsWith("0x") ? parseInt(src, 16) : parseInt(src, 10); // convert hex to real num
-                            if (!isNaN(numValue)) {
-                                regs[dest] = numValue;
+                            const numValue = parseImm(src);
+                            if (numValue !== null) {
+                                // make sure reg doesn't exceed 64 bits using AND logic
+                                regs[dest] = numValue & 0xFFFFFFFFFFFFFFFFn; 
                             }
                         }
                     }
@@ -410,11 +273,11 @@ export default function AssemblyEditor() {
                     const dest = parts[1];
                     const src = parts[2];
                     if (regs[src] !== undefined) {
-                        regs[dest] = regs[dest] + regs[src];
+                        regs[dest] = (regs[dest] + regs[src]) & 0xFFFFFFFFFFFFFFFFn; // prevent overflow
                     } else {
-                        const numericValue = src.startsWith("0x") ? parseInt(src, 16) : parseInt(src, 10);
-                        if (!isNaN(numericValue)) {
-                            regs[dest] = regs[dest] + numericValue;
+                        const numValue = parseImm(src);
+                        if (numValue !== null) {
+                            regs[dest] = (regs[dest] + numValue) & 0xFFFFFFFFFFFFFFFFn;
                         }
                     }
                 }
@@ -424,11 +287,11 @@ export default function AssemblyEditor() {
                     const dest = parts[1];
                     const src = parts[2];
                     if (regs[src] !== undefined) {
-                        regs[dest] = regs[dest] - regs[src];
+                        regs[dest] = (regs[dest] - regs[src]) & 0xFFFFFFFFFFFFFFFFn; 
                     } else {
-                        const numericValue = src.startsWith("0x") ? parseInt(src, 16) : parseInt(src, 10);
-                        if (!isNaN(numericValue)) {
-                            regs[dest] = regs[dest] - numericValue;
+                        const numValue = parseImm(src);
+                        if (numValue !== null) {
+                            regs[dest] = (regs[dest] - numValue) & 0xFFFFFFFFFFFFFFFFn;
                         }
                     }
                 }
@@ -448,23 +311,144 @@ export default function AssemblyEditor() {
                         regs[dest]--;
                     }
                 }
+
+                // RETURN STATEMENT CHECKING //
+                if (opcode === "ret") {
+                    if (isInTextSection) {
+                        hasReturned = true; // break code
+                    }
+                    continue;
+                }
             }
         }
 
         // error check
-        if (!isInTextSection && !hasReturned && lines.length > 0) {
-            alert("Missing .text segment or 'ret' command.");
+        if (!isInTextSection) {
+            alert("Missing .text segment. Hint: All blocks must go inside a .text segment!");
+        }
+        else if (!hasReturned) {
+            alert("Segmentation Fault: Code fell off the end of .text without ret. Hint: add a ret before .text ends!")
         } else {
             setRegisters(regs);
         }
     };
 
+    // Helper function for initializing two operand arithmetic operatons
+    const initArithmeticBlock = (block, blockName, blockDesc) => {
+        block.appendDummyInput("INPUT_ROW")
+                    .appendField(blockName)
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"]]), "DEST")
+                    .appendField(",")
+                    .appendField(new Blockly.FieldDropdown([["rax","RAX"], ["rbx","RBX"], ["rcx","RCX"], ["rdx","RDX"], ["Custom", "CUSTOM"]]), "SRC_DROP")
+                    .appendField(new Blockly.FieldLabel("0x"), "HEX_PREFIX")
+                    .appendField(new Blockly.FieldTextInput("00", function(newValue) {
+                        const cleaned = newValue.replace(/[^0-9a-fA-F]/g, ''); // dont allow non-hex characters
+                        return cleaned.slice(0, 16); // max length at 16 hex characters
+                    }), "HEX_VALUE"); 
+
+                block.setPreviousStatement(true, null);
+                block.setNextStatement(true, null);
+                block.setColour(210);
+                block.setTooltip(blockDesc);
+
+                // Hide text fields for now
+                block.getField("HEX_PREFIX").setVisible(false);
+                block.getField("HEX_VALUE").setVisible(false);
+
+                block.setOnChange(function(event) {
+                // check for changes in MOV block
+                if (event.type === Blockly.Events.BLOCK_CHANGE && event.blockId === block.id) {
+                    // if change was made in drop down
+                    if (event.name === "SRC_DROP") {
+                        const dropdownField = block.getField("SRC_DROP");
+                        const prefixField = block.getField("HEX_PREFIX");
+                        const valueField = block.getField("HEX_VALUE");
+
+                        // if custom text
+                        if (event.newValue === "CUSTOM") {
+                            dropdownField.setVisible(false);
+                            prefixField.setVisible(true);
+                            valueField.setVisible(true);
+                        } else {
+                            dropdownField.setVisible(true);
+                            prefixField.setVisible(false);
+                            valueField.setVisible(false);
+                        }
+                        block.render();
+                    }
+                }}); 
+    }
+
+    // Helper function for code generator of two operand arithmetic blocks
+    const arithmeticGenerator = (block) => {
+        const dest = block.getFieldValue('DEST').toLowerCase();
+        const srcType = block.getFieldValue('SRC_DROP').toLowerCase();
+
+        // get hex or register value
+        let src = "";
+        if (srcType === "custom") {
+            src = "0x" + block.getFieldValue("HEX_VALUE");
+        } else {
+            src = srcType.toLowerCase();
+        }
+        return [dest, src];
+    }
+
+    // Helper to check if immediate value count is valid (imm8_16_32_64)
+    const checkIfImmInvalid = (src) => {
+        const rawHex = src.slice(2);
+        const len = rawHex.length;
+        
+        // Valid hex digit counts: 2 (8-bit), 4 (16-bit), 8 (32-bit), 16 (64-bit)
+        const validLengths = [2, 4, 8, 16];
+
+        if (!validLengths.includes(len)) {
+            alert("Invalid hex length! Immediate values must be 8, 16, 32, or 64 bits (2, 4, 8, or 16 hex characters).");
+            return true;
+        }
+        return false;
+    }
+
+    // Helper to check if imm32 and needs sign extension
+    const signExtend = (src) => {
+        if (!src.startsWith("0x")) return src;
+
+        let rawHex = src.slice(2);
+        const len = rawHex.length;
+
+        if (len == 8) { // if 32 bit
+            const msbChar = rawHex.charAt(0); // Check first char
+            const msbValue = parseInt(msbChar, 16);
+
+            // If MSB >= 8, the sign bit is 1
+            if (msbValue >= 8) {
+                rawHex = rawHex.padStart(16, "F");
+            } else {
+                rawHex = rawHex.padStart(16, "0");
+            }
+        }
+        return "0x" + rawHex;
+    }
+
+    // Helper to parse imm value into BigInt
+    const parseImm = (src) => {
+        if (checkIfImmInvalid(src)) return null;
+        let hex = signExtend(src);
+        try {
+            return BigInt(hex.startsWith("0x") ? hex : "0x" + hex);
+        } catch {
+            return null;
+        }
+    };
+        
+    // Helper to reset registers
     const resetRegisters = () => {
-        setRegisters({ rax: 0, rbx: 0, rcx: 0, rdx: 0 });
+        setRegisters({ rax: 0n, rbx: 0n, rcx: 0n, rdx: 0n });
     }
 
     // Helper to format numValues to hex
     const formatHex = (value, bits = 64) => {
+        if (value === undefined) return "0x" + "0".repeat(bits / 4);
         const hexDigits = bits / 4;
         return "0x" + value.toString(16).toUpperCase().padStart(hexDigits, "0");
     };
@@ -522,45 +506,37 @@ export default function AssemblyEditor() {
                         <p>DH: {formatHex(readRegister("dh", registers), 8)}</p>
                         <p>DL: {formatHex(readRegister("dl", registers), 8)}</p>
                     </div>
-
                 </div>
 
-                {/* output display: memory */}
-            <div className="flex-grow bg-stone-950 text-emerald-400 p-4 font-mono text-xs rounded shadow overflow-auto whitespace-pre">
-                <h2 className="font-bold mb-2">Memory</h2>
-
-                {memory.map((value, index) => (
-                <div key={index} className="flex justify-between text-sm font-mono">
-                    <span>[{index}]</span>
-                    <span>{value}</span>
-                </div>))}
-            </div>
-
             </div>
         </div>
 
-        {/* run simulation button */}
-        <div className="flex gap-4 mt-4">
-            <button onClick={runSimulation}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Run
-            </button>
-        </div>
-
-        {/* reset button */}
-        <div>
-            <button onClick={resetRegisters} className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded gap-2 mt-4">
-                Reset
-            </button>
-        </div>
-        
-        {/* back button */}
-        <div>
-            <Link href="/">
-                <button className="bg-yellow-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded gap-2 mt-4">
-                    Back
+        <div className="inline-flex">
+            {/* run simulation button */}
+            <div className="flex gap-4 mt-4 mr-4">
+                <button onClick={runSimulation}
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Run
                 </button>
-            </Link>
+            </div>
+
+            {/* reset button */}
+            <div className="flex gap-4 mt-4 mr-4">
+                <button onClick={resetRegisters} 
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Reset
+                </button>
+            </div>
+            
+            {/* back button */}
+            <div className="flex gap-4 mt-4 mr-4">
+                <Link href="/">
+                    <button 
+                    className="bg-yellow-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Back
+                    </button>
+                </Link>
+            </div>
         </div>
+
+        
     </div>
     
   );
